@@ -74,31 +74,31 @@ export const Shop: React.FC<ShopProps> = ({ onQuickView, onProceedToCheckout }) 
           {TASTING_FLIGHTS.map((flight) => (
             <div
               key={flight.id}
-              className="p-8 rounded-sm bg-gradient-to-br from-cei-surface via-cei-card to-cei-surface border border-cei-gold/30 hover:border-cei-gold/60 transition-all flex flex-col justify-between shadow-2xl relative overflow-hidden"
+              className="p-8 rounded-sm bg-[#161514] border border-white/10 hover:border-[#C5A46D]/50 transition-all flex flex-col justify-between shadow-xl relative overflow-hidden"
             >
-              <div className="absolute top-4 right-4 px-3 py-1 bg-cei-dark/90 border border-cei-gold/40 text-cei-gold text-[10px] tracking-widest uppercase font-serif">
+              <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 border border-white/15 text-[#C5A46D] text-[10px] tracking-widest uppercase font-sans">
                 {flight.badge}
               </div>
 
               <div>
-                <span className="text-[10px] tracking-[0.25em] uppercase text-cei-gold font-light block mb-1">
+                <span className="text-[10px] tracking-[0.25em] uppercase text-[#C5A46D] font-light block mb-1">
                   Presentation Hamper
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl font-medium text-cei-cream mb-2">
+                <h3 className="font-serif text-2xl sm:text-3xl font-medium text-white mb-2">
                   {flight.name}
                 </h3>
-                <p className="text-xs text-cei-cream/70 font-light leading-relaxed mb-6">
+                <p className="text-xs text-white/60 font-light leading-relaxed mb-6">
                   {flight.description}
                 </p>
 
                 <div className="space-y-2 mb-6">
-                  <span className="text-[10px] tracking-widest uppercase text-cei-gold block font-semibold">
+                  <span className="text-[10px] tracking-widest uppercase text-[#C5A46D] block font-semibold">
                     Flavours Included:
                   </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-cei-cream/80 font-light">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-white/80 font-light">
                     {flight.items.map((fl, i) => (
                       <div key={i} className="flex items-center space-x-2">
-                        <Check className="w-3.5 h-3.5 text-cei-gold shrink-0" />
+                        <Check className="w-3.5 h-3.5 text-[#C5A46D] shrink-0" />
                         <span>{fl}</span>
                       </div>
                     ))}
@@ -106,18 +106,18 @@ export const Shop: React.FC<ShopProps> = ({ onQuickView, onProceedToCheckout }) 
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-cei-gold/15 flex items-center justify-between">
+              <div className="pt-6 border-t border-white/10 flex items-center justify-between">
                 <div>
-                  <span className="text-xs text-cei-cream/50 line-through mr-2">
+                  <span className="text-xs text-white/40 line-through mr-2">
                     ₹{flight.originalPrice.toLocaleString('en-IN')}
                   </span>
-                  <span className="font-serif text-2xl font-bold text-cei-gold">
+                  <span className="font-serif text-2xl font-bold text-[#C5A46D]">
                     ₹{flight.price.toLocaleString('en-IN')}
                   </span>
                 </div>
                 <button
                   onClick={() => handleAddFlight(flight.id)}
-                  className="px-6 py-3 bg-gradient-to-r from-cei-gold-dark via-cei-gold to-cei-gold-light text-cei-dark hover:brightness-110 font-sans text-xs tracking-[0.15em] font-semibold uppercase rounded-sm shadow-xl flex items-center space-x-2"
+                  className="px-6 py-2.5 bg-[#C5A46D] text-[#121110] hover:brightness-110 font-sans text-xs tracking-[0.15em] font-semibold uppercase rounded-sm shadow-md flex items-center space-x-2"
                 >
                   <Package className="w-3.5 h-3.5" />
                   <span>Add Hamper</span>

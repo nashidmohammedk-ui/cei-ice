@@ -53,7 +53,7 @@ const MainApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cei-dark text-cei-cream font-sans antialiased selection:bg-cei-gold selection:text-cei-dark">
+    <div className="min-h-screen bg-[#121110] text-[#F5F2EB] font-sans antialiased selection:bg-[#C5A46D] selection:text-[#121110]">
       {/* 1. Luxury Preloader */}
       {!isPreloaded && <Preloader onComplete={() => setIsPreloaded(true)} />}
 

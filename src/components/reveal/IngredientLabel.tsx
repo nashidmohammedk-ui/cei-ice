@@ -34,50 +34,38 @@ export const IngredientLabel: React.FC<IngredientLabelProps> = ({ label, delay =
           height: '1px'
         }}
       >
-        {/* Glowing Anchor Dot on the Exploded Ingredient */}
+        {/* Minimal Anchor Dot on the Exploded Ingredient */}
         <circle
           cx={isLeft ? `${(label.anchorX - label.labelX) * 2.8}px` : `-${(label.labelX - label.anchorX) * 2.8}px`}
           cy={`${(label.anchorY - label.labelY) * 2.8}px`}
-          r="3"
-          fill="#D5B77A"
-          className="animate-pulse"
-        />
-        <circle
-          cx={isLeft ? `${(label.anchorX - label.labelX) * 2.8}px` : `-${(label.labelX - label.anchorX) * 2.8}px`}
-          cy={`${(label.anchorY - label.labelY) * 2.8}px`}
-          r="6"
-          fill="none"
-          stroke="#D5B77A"
-          strokeWidth="0.8"
-          opacity="0.6"
+          r="2.5"
+          fill="#C5A46D"
         />
 
-        {/* Diagonal Line to Anchor Point */}
+        {/* Minimal Line to Anchor Point */}
         <line
           x1="0"
           y1="0"
           x2={isLeft ? `${(label.anchorX - label.labelX) * 2.8}px` : `-${(label.labelX - label.anchorX) * 2.8}px`}
           y2={`${(label.anchorY - label.labelY) * 2.8}px`}
-          stroke="#D5B77A"
-          strokeWidth="1"
-          strokeDasharray="3 2"
-          opacity="0.75"
+          stroke="rgba(197, 164, 109, 0.45)"
+          strokeWidth="0.8"
         />
       </svg>
 
-      {/* Champagne-Gold Frosted Badge Card */}
+      {/* Clean Minimalist Editorial Label */}
       <div
-        className={`px-2.5 py-1 rounded-sm bg-black/85 backdrop-blur-md border border-[#D5B77A]/50 shadow-[0_4px_20px_rgba(0,0,0,0.8),0_0_12px_rgba(213,183,122,0.25)] flex flex-col ${
+        className={`px-2 py-0.5 rounded-sm bg-[#141312]/90 backdrop-blur-sm border border-white/10 shadow-md flex flex-col ${
           isLeft ? 'items-start text-left' : 'items-end text-right'
         } max-w-[145px] sm:max-w-[170px]`}
       >
         <div className="flex items-center space-x-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#D5B77A] inline-block shrink-0" />
-          <span className="text-[9px] sm:text-[10px] font-sans font-bold tracking-wider uppercase text-[#FFF5DE] leading-tight line-clamp-1">
+          <span className="w-1 h-1 rounded-full bg-[#C5A46D] inline-block shrink-0" />
+          <span className="text-[9px] font-sans font-medium tracking-wider uppercase text-[#F5F2EB] leading-tight line-clamp-1">
             {label.title}
           </span>
         </div>
-        <span className="text-[8px] sm:text-[8.5px] font-serif italic text-[#D5B77A]/90 mt-0.5 line-clamp-1">
+        <span className="text-[8px] font-serif italic text-[#C5A46D] mt-0.5 line-clamp-1">
           {label.provenance}
         </span>
       </div>

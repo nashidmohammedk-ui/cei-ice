@@ -30,13 +30,13 @@ export const ProductRevealViewer: React.FC<ProductRevealViewerProps> = ({ produc
 
   return (
     <div
-      className="relative aspect-[4/3] overflow-hidden bg-[#07140E] cursor-pointer select-none flex items-center justify-center"
+      className="relative aspect-[4/3] overflow-hidden bg-[#181716] cursor-pointer select-none flex items-center justify-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleCardClick}
     >
-      {/* Background Ambient Aura */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#07140E] via-transparent to-transparent opacity-80 z-5 pointer-events-none" />
+      {/* Background Subtle Vignette */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#161514] via-transparent to-transparent opacity-60 z-5 pointer-events-none" />
 
       {/* Static Badge / Touch Hint (when NOT active) */}
       <AnimatePresence>
@@ -48,7 +48,7 @@ export const ProductRevealViewer: React.FC<ProductRevealViewerProps> = ({ produc
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute top-3 left-3 z-30 pointer-events-none px-2.5 py-0.8 bg-[#07140E]/90 backdrop-blur-sm border border-[#D5B77A]/40 text-[#D5B77A] text-[9px] tracking-widest uppercase font-serif"
+                className="absolute top-3 left-3 z-30 pointer-events-none px-2 py-0.5 bg-black/60 backdrop-blur-sm border border-white/10 text-white/80 text-[8px] tracking-[0.2em] uppercase font-sans"
               >
                 {product.badge}
               </motion.div>
@@ -61,8 +61,8 @@ export const ProductRevealViewer: React.FC<ProductRevealViewerProps> = ({ produc
               exit={{ opacity: 0 }}
               className="absolute top-3 right-3 z-30 pointer-events-none"
             >
-              <span className="text-[8px] tracking-widest uppercase font-mono px-2.5 py-0.8 rounded-full bg-black/70 border border-[#D5B77A]/40 text-[#D5B77A] shadow-lg">
-                TOUCH TO REVEAL
+              <span className="text-[8px] tracking-[0.2em] uppercase font-sans px-2 py-0.5 rounded-sm bg-black/60 border border-white/10 text-[#C5A46D]">
+                EXPLODED VIEW
               </span>
             </motion.div>
           </>
@@ -133,9 +133,9 @@ export const ProductRevealViewer: React.FC<ProductRevealViewerProps> = ({ produc
             e.stopPropagation();
             onQuickView(product);
           }}
-          className="px-4 py-2 bg-[#07140E]/95 border border-[#D5B77A] text-[#D5B77A] text-xs tracking-widest uppercase font-sans rounded-sm hover:bg-[#D5B77A] hover:text-[#07140E] transition-all flex items-center space-x-1.5 shadow-xl font-semibold pointer-events-auto mt-24 opacity-0 group-hover:opacity-100"
+          className="px-3.5 py-1.5 bg-[#121110]/95 border border-white/25 text-[#F5F2EB] text-[10px] tracking-[0.2em] uppercase font-sans rounded-sm hover:border-[#C5A46D] hover:text-[#C5A46D] transition-all flex items-center space-x-1.5 shadow-lg font-medium pointer-events-auto mt-24 opacity-0 group-hover:opacity-100"
         >
-          <Eye className="w-3.5 h-3.5" />
+          <Eye className="w-3 h-3 text-[#C5A46D]" />
           <span>Discover Notes</span>
         </button>
       </div>

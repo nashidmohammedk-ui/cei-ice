@@ -15,21 +15,21 @@
   }
 
   html {
-    background-color: #064E42;
-    color: #F3EDE3;
+    background-color: #121110;
+    color: #F5F2EB;
     font-family: 'Outfit', sans-serif;
   }
 
-  /* Custom luxury scrollbar */
+  /* Custom minimal luxury scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
   ::-webkit-scrollbar-track {
-    background: #064E42;
+    background: #121110;
   }
   ::-webkit-scrollbar-thumb {
-    background: #0A5E50;
-    border-radius: 3px;
+    background: #2A2826;
+    border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #C5A46D;

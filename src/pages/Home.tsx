@@ -16,15 +16,10 @@ import {
   Award,
   Sparkles,
   Wand2,
-  Calendar,
-  Instagram,
-  Facebook,
-  Youtube,
-  Layers,
-  Flame,
-  Check
+  Check,
+  MapPin
 } from 'lucide-react';
-import { PRODUCTS, TASTING_FLIGHTS, REVIEWS, BOUTIQUES } from '../data/products';
+import { PRODUCTS, TASTING_FLIGHTS, BOUTIQUES } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { TastingVideoModal } from '../components/TastingVideoModal';
 import { Product } from '../types';
@@ -36,16 +31,14 @@ interface HomeProps {
   onQuickView?: (product: Product) => void;
 }
 
-// 4 Signature Luxury Couture Bars for the Animated Hero Carousel
+// 4 Signature Luxury Couture Bars for the Hero Carousel
 const LUXURY_HERO_BARS = [
   {
     id: 'chuao',
     productId: 'cei-bar-chuao-caramel',
     name: 'Chuao Dark Chocolate & Salted Caramel Bar',
-    subtitle: '78% Single-Origin Venezuelan Criollo & Roasted Hazelnuts',
-    watermark: 'CHUAO CARAMEL',
+    subtitle: '78% Single-Origin Venezuelan Criollo & Slow-Roasted Hazelnuts',
     number: '01 / 04',
-    bgTheme: '#07140E', // Deep Forest Green
     image: '/images/hero-ice-cream-bar.jpg',
     provenance: 'Chuao Valley, Venezuela & Langhe Hills, Italy',
     notes: '78% Criollo Dark Chocolate, Fleur de Sel Caramel, Tahitensis Vanilla'
@@ -54,10 +47,8 @@ const LUXURY_HERO_BARS = [
     id: 'rose',
     productId: 'cei-bar-rose-pistachio',
     name: 'Damask Rose & Bronte Pistachio Couture Bar',
-    subtitle: 'Edible Pink Rose Petals, Sicilian Pistachios & White Chocolate Medallion',
-    watermark: 'DAMASK ROSE',
+    subtitle: 'Crystallised Damask Rose Petals, Sicilian Pistachios & White Chocolate Seal',
     number: '02 / 04',
-    bgTheme: '#381016', // Deep Velvet Burgundy
     image: '/images/cei-rose-pistachio-bar.jpg',
     provenance: 'Kashan, Iran & Mount Etna, Sicily',
     notes: 'Damask Rose Petals, DOP Bronte Pistachio, Ivory White Chocolate'
@@ -66,24 +57,20 @@ const LUXURY_HERO_BARS = [
     id: 'vanilla',
     productId: 'cei-bar-white-macadamia',
     name: 'Tahitian Vanilla & Macadamia Crunch Bar',
-    subtitle: 'Pure Tahitensis Orchid Caviar & Roasted Hawaiian Macadamias',
-    watermark: 'TAHITIAN CRUNCH',
+    subtitle: 'Wayanad Orchid Caviar & Golden Roasted Macadamias',
     number: '03 / 04',
-    bgTheme: '#1C1917', // Rich Charcoal Black
     image: '/images/cei-white-chocolate-macadamia.jpg',
-    provenance: 'Raiatea, French Polynesia & Hawaii',
-    notes: 'Ivory Cocoa Butter, Tahitian Vanilla Caviar, Roasted Macadamia'
+    provenance: 'Wayanad, Kerala & Queensland, Australia',
+    notes: 'Ivory Cocoa Butter, Orchid Vanilla Bean, Roasted Macadamia'
   },
   {
     id: 'gold',
     productId: 'cei-bar-gold-truffle',
     name: '24K Gold Leaf & Belgian Dark Truffle Bar',
     subtitle: 'Hand-Adorned 24K Edible Gold Leaf & Grand Cru Truffle Ganache',
-    watermark: '24K GOLD RESERVE',
     number: '04 / 04',
-    bgTheme: '#09261E', // Imperial Dark Emerald
     image: '/images/cei-gold-truffle-bar.jpg',
-    provenance: 'Brussels, Belgium & Golden Triangle',
+    provenance: 'Brussels, Belgium & Florence, Italy',
     notes: '24K Edible Gold, 80% Belgian Dark Chocolate, Fleur de Sel'
   }
 ];
@@ -94,12 +81,11 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
   const activeBar = LUXURY_HERO_BARS[heroIndex];
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
-  // Hero section view mode: 'video' (Cinematic Vertical 9:16 Film) or 'bar' (3D Interactive Stick Bar)
+  // Hero section view mode: 'video' (Cinematic Film) or 'bar' (Handheld Couture Bar)
   const [heroView, setHeroView] = useState<'video' | 'bar'>('video');
   const [isHeroVideoPlaying, setIsHeroVideoPlaying] = useState(true);
   const [isHeroAudioPlaying, setIsHeroAudioPlaying] = useState(false);
   const heroVideoRef = React.useRef<HTMLVideoElement>(null);
-  const heroAudioRef = React.useRef<HTMLAudioElement>(null);
 
   const toggleHeroPlay = () => {
     if (heroVideoRef.current) {
@@ -121,28 +107,17 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
     if (heroVideoRef.current) {
       heroVideoRef.current.muted = !next;
     }
-    if (heroAudioRef.current) {
-      if (next) {
-        heroAudioRef.current.play().catch(() => {});
-      } else {
-        heroAudioRef.current.pause();
-      }
-    }
   };
 
-  // Hero stick bar mouse hover state for toppings & fillings animation
-  const [isHeroBarHovered, setIsHeroBarHovered] = useState(false);
+  // Dipping ritual step (0 to 3)
+  const [spotlightStep, setSpotlightStep] = useState(1);
 
-  // Spotlight dipping step (0 to 3)
-  const [spotlightStep, setSpotlightStep] = useState(2);
-
-  // Section 6 Pick. Dip. Top. customizer state
+  // Section: Bespoke Atelier customizer state
   const [customGelato, setCustomGelato] = useState('Tahitian Vanilla');
   const [customDip, setCustomDip] = useState('78% Chuao Dark');
   const [customTopping, setCustomTopping] = useState('Damask Rose Petals');
   const [isSurpriseActive, setIsSurpriseActive] = useState(false);
 
-  // Get real photo for the Customizer based on chosen topping & dip
   const getCustomizerPhoto = () => {
     if (customTopping === 'Damask Rose Petals' || customTopping === 'Bronte Pistachios') {
       return '/images/cei-rose-pistachio-bar.jpg';
@@ -213,7 +188,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
       provenance: { region: 'CEI Fort Kochi Atelier Dipping Salon', country: 'Kerala, India', source: 'Hand-dipped to order' },
       details: {
         description: `Custom formulated haute couture ice cream bar: ${customGelato} gelato freshly dipped in ${customDip} and adorned with ${customTopping} on engraved birchwood stick.`,
-        tastingRitual: 'Serve in cold gold-foil presentation tray.',
+        tastingRitual: 'Serve in cold presentation tray.',
         sommelierPairing: 'Brut Champagne or Single Origin Espresso.',
         overrun: '11% micro-density',
         dietary: ['Vegetarian', 'Gluten-Free'],
@@ -225,7 +200,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
     setIsCartOpen(true);
   };
 
-  // Curated Signature Couture Bars featuring the user's authentic CEI-branded uploaded collection
+  // Curated Signature Couture Bars featuring the 8 authentic products
   const featuredProductIds = [
     'cei-bar-utopia-double-hazelnut',
     'cei-bar-utopia-double-cherry',
@@ -242,7 +217,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
     .filter((p): p is Product => Boolean(p));
 
   return (
-    <div className="relative overflow-hidden bg-[#07140E] text-[#F4EBD8]">
+    <div className="relative bg-[#121110] text-[#F5F2EB]">
       {/* Video Tasting Film Modal */}
       <TastingVideoModal
         isOpen={isVideoModalOpen}
@@ -250,504 +225,239 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
       />
 
       {/* ========================================================
-          1. CINEMATIC HERO SECTION
-          - Minimal clean editorial typography on the left (Reduced text clutter)
-          - Deep Luxury Palette (#07140E / #381016 / #1C1917 / #09261E)
-          - INTERACTIVE MOUSE HOVER ANIMATION ON THE STICK BAR:
-            When mouse touches/hovers, toppings, caramel fillings, roasted nut shards,
-            and anatomy callouts gracefully burst and animate onto the bar!
+          1. EDITORIAL MINIMAL HERO SECTION
          ======================================================== */}
-      <section
-        className="relative min-h-[96vh] flex flex-col justify-between pt-28 pb-0 px-4 sm:px-8 lg:px-14 overflow-hidden transition-colors duration-700"
-        style={{ backgroundColor: activeBar.bgTheme }}
-      >
-        {/* Giant Watermark Typography in Background */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
-          <AnimatePresence mode="wait">
-            <motion.h2
-              key={activeBar.watermark}
-              initial={{ opacity: 0, scale: 0.88, y: 30 }}
-              animate={{ opacity: 0.12, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.05, y: -30 }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
-              className="font-display text-[15vw] font-black uppercase text-[#D5B77A] whitespace-nowrap tracking-tight leading-none text-center"
-            >
-              {activeBar.watermark}
-            </motion.h2>
-          </AnimatePresence>
-        </div>
-
-        {/* Ambient Warm Golden Aura */}
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[550px] sm:w-[700px] h-[550px] sm:h-[700px] rounded-full bg-[#D5B77A]/12 blur-[160px] pointer-events-none" />
-
-        {/* Main Hero Content Grid */}
-        <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 my-auto">
-          {/* Left Column: Clean Minimal Typography (No Clutter, Exactly as requested) */}
+      <section className="relative min-h-[92vh] flex flex-col justify-between pt-28 pb-12 px-4 sm:px-8 lg:px-16 border-b border-white/10 bg-[#121110]">
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center flex-1 my-auto">
+          {/* Left Column: Quiet Editorial Typography */}
           <motion.div
-            initial={{ opacity: 0, x: -35 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 flex flex-col items-start space-y-7 text-left text-[#F4EBD8]"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-6 flex flex-col space-y-6 text-left"
           >
-            {/* Main Headline: 3 Lines, Large, Gold Sheen */}
-            <div className="space-y-1">
-              <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.98] uppercase">
-                <span className="block bg-gradient-to-b from-[#FFF5DE] via-[#D5B77A] to-[#8C6D34] bg-clip-text text-transparent drop-shadow-[0_4px_25px_rgba(213,183,122,0.4)]">
-                  A NEW
-                </span>
-                <span className="block bg-gradient-to-b from-[#FFF5DE] via-[#D5B77A] to-[#8C6D34] bg-clip-text text-transparent drop-shadow-[0_4px_25px_rgba(213,183,122,0.4)] mt-1">
-                  ADVENTURE
-                </span>
-                <span className="block font-serif italic font-normal text-3xl sm:text-5xl lg:text-6xl text-[#F4EBD8] tracking-normal mt-2 drop-shadow-md">
-                  IN ICE CREAM.
+            {/* Origin Monogram Tag */}
+            <div className="flex items-center space-x-3">
+              <span className="w-6 h-[1px] bg-[#C5A46D]" />
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A46D] font-sans font-medium">
+                Fort Kochi, Kerala • Est. 2024
+              </span>
+            </div>
+
+            {/* Architectural Headline */}
+            <div>
+              <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-[#F5F2EB] tracking-tight leading-[1.08]">
+                An Adventure in
+                <span className="block italic text-[#C5A46D] font-light">
+                  Haute Glacerie.
                 </span>
               </h1>
             </div>
 
-            {/* Subtitle (Clean & Minimal) */}
-            <p className="font-serif text-lg sm:text-2xl text-[#F4EBD8]/85 max-w-md font-light italic leading-relaxed">
-              Taking you to a place a little wilder than the everyday...
+            {/* Editorial Subtitle */}
+            <p className="font-serif text-base sm:text-xl text-white/70 max-w-lg font-light leading-relaxed">
+              Where Malabar botanical terroir meets the exacting physics of French cold gastronomy. Single-origin chocolate enrobed over sub-15% overrun cream on laser-engraved birchwood sticks.
             </p>
 
-            {/* Single Clean Action Button */}
-            <div className="pt-2 flex items-center space-x-6">
+            {/* Minimalist Action Buttons */}
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <button
+                onClick={() => {
+                  const el = document.getElementById('flavours');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  else onNavigate('flavours');
+                }}
+                className="px-8 py-3.5 bg-[#C5A46D] text-[#121110] hover:brightness-110 transition-all font-sans text-xs tracking-[0.2em] font-semibold uppercase rounded-sm"
+              >
+                Explore Flavours
+              </button>
+
               <button
                 onClick={() => {
                   const el = document.getElementById('story');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                   else onNavigate('story');
                 }}
-                className="px-9 py-3.5 border border-[#D5B77A] text-[#D5B77A] hover:bg-[#D5B77A] hover:text-[#07140E] transition-all duration-300 font-sans text-xs tracking-[0.25em] font-semibold uppercase rounded-sm shadow-[0_0_20px_rgba(213,183,122,0.2)]"
+                className="px-7 py-3.5 border border-white/20 text-white/80 hover:text-white hover:border-white transition-all font-sans text-xs tracking-[0.2em] uppercase rounded-sm font-medium"
               >
-                ABOUT US
+                Our Story
               </button>
-
-              <div className="text-xs font-mono uppercase tracking-widest text-[#D5B77A]/80 flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-[#D5B77A] animate-pulse" />
-                <span>{activeBar.number} • {activeBar.name.split(' ')[0]} {activeBar.name.split(' ')[1]}</span>
-              </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Hero Video Film or 3D Slanted Floating Bars */}
-          <div className="lg:col-span-6 relative flex flex-col items-center justify-center min-h-[500px] select-none pt-4 lg:pt-0">
-            {/* Mode Switcher Pill */}
-            <div className="mb-4 z-30 flex items-center p-1 rounded-full bg-black/60 border border-[#D5B77A]/40 backdrop-blur-md shadow-xl">
+          {/* Right Column: Clean Cinematic Player / Couture Showcase */}
+          <div className="lg:col-span-6 flex flex-col items-center">
+            {/* Clean Understated Mode Switcher */}
+            <div className="mb-4 flex items-center space-x-1 p-1 rounded-sm bg-white/5 border border-white/10 text-xs tracking-widest uppercase font-sans">
               <button
                 type="button"
                 onClick={() => setHeroView('video')}
-                className={`px-4 py-1.5 rounded-full text-xs font-sans tracking-[0.2em] uppercase transition-all duration-300 flex items-center space-x-2 ${
+                className={`px-4 py-1.5 rounded-sm transition-all ${
                   heroView === 'video'
-                    ? 'bg-[#D5B77A] text-[#07140E] font-bold shadow-[0_0_15px_rgba(213,183,122,0.6)]'
-                    : 'text-[#D5B77A]/75 hover:text-[#D5B77A]'
+                    ? 'bg-[#C5A46D] text-[#121110] font-semibold'
+                    : 'text-white/60 hover:text-white'
                 }`}
               >
-                <Film className="w-3.5 h-3.5" />
-                <span>FLAVOUR TRANSFORMATION</span>
+                Flavour Film
               </button>
               <button
                 type="button"
                 onClick={() => setHeroView('bar')}
-                className={`px-4 py-1.5 rounded-full text-xs font-sans tracking-[0.2em] uppercase transition-all duration-300 flex items-center space-x-2 ${
+                className={`px-4 py-1.5 rounded-sm transition-all ${
                   heroView === 'bar'
-                    ? 'bg-[#D5B77A] text-[#07140E] font-bold shadow-[0_0_15px_rgba(213,183,122,0.6)]'
-                    : 'text-[#D5B77A]/75 hover:text-[#D5B77A]'
+                    ? 'bg-[#C5A46D] text-[#121110] font-semibold'
+                    : 'text-white/60 hover:text-white'
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>3D COUTURE BAR</span>
+                Couture Bar
               </button>
             </div>
 
             {heroView === 'video' ? (
               <motion.div
-                key="hero-video-frame"
-                initial={{ opacity: 0, scale: 0.94, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.5 }}
-                className="relative z-20 flex flex-col items-center w-full max-w-[540px] sm:max-w-[600px] lg:max-w-[640px]"
+                key="minimal-video"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                className="w-full max-w-[580px] flex flex-col items-center"
               >
-                {/* Ambient Golden Halo Behind Video */}
-                <div className="absolute -inset-4 bg-gradient-to-tr from-[#D5B77A]/25 via-transparent to-[#FFE8A3]/20 rounded-[36px] blur-2xl pointer-events-none" />
+                {/* Clean Frame 16:9 Widescreen */}
+                <div className="relative w-full aspect-video rounded-sm overflow-hidden border border-white/15 bg-black shadow-2xl group">
+                  <video
+                    ref={heroVideoRef}
+                    src="/videos/cei-flavour-transformation.mp4"
+                    autoPlay
+                    loop
+                    muted={!isHeroAudioPlaying}
+                    playsInline
+                    className="w-full h-full object-cover cursor-pointer"
+                    onClick={toggleHeroPlay}
+                  />
 
-                {/* Luxury Cinema 16:9 Widescreen Frame */}
-                <div className="relative w-full p-1.5 rounded-[26px] sm:rounded-[30px] bg-gradient-to-b from-[#FFF5DE]/50 via-[#D5B77A]/60 to-[#6E4F18]/50 border border-[#D5B77A]/60 shadow-[0_30px_80px_rgba(0,0,0,0.95),0_0_40px_rgba(213,183,122,0.3)]">
-                  <div className="relative w-full aspect-video rounded-[22px] sm:rounded-[26px] overflow-hidden bg-black shadow-inner">
-                    {/* The Hero Video: Ice Cream Flavour Transformation */}
-                    <video
-                      ref={heroVideoRef}
-                      src="/videos/cei-flavour-transformation.mp4"
-                      autoPlay
-                      loop
-                      muted={!isHeroAudioPlaying}
-                      playsInline
-                      className="w-full h-full object-cover cursor-pointer"
-                      onClick={toggleHeroPlay}
-                    />
-
-                    {/* Subtle Dark Vignette Gradients */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/60 pointer-events-none" />
-
-                    {/* Top Status Bar Over Video */}
-                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20 pointer-events-none">
-                      <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-[#D5B77A]/40 text-[#D5B77A] text-[10px] tracking-widest font-mono uppercase">
-                        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                        <span>CEI CINEMA • 1080P MASTER</span>
-                      </div>
-                      <span className="px-2.5 py-1 rounded-full bg-[#D5B77A]/20 border border-[#D5B77A]/40 text-[#F4EBD8] text-[10px] tracking-widest font-mono">
-                        FLAVOUR TRANSFORMATION
-                      </span>
-                    </div>
-
-                    {/* Center Click-to-Play Indicator if Paused */}
-                    {!isHeroVideoPlaying && (
-                      <div
-                        onClick={toggleHeroPlay}
-                        className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer z-20"
-                      >
-                        <div className="w-16 h-16 rounded-full bg-[#D5B77A] text-[#07140E] flex items-center justify-center shadow-[0_0_30px_#D5B77A] transform hover:scale-110 transition-transform">
-                          <Play className="w-8 h-8 fill-current ml-1" />
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Bottom Floating Glass Controls */}
-                    <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 p-2.5 sm:p-3 rounded-2xl bg-black/70 backdrop-blur-md border border-[#D5B77A]/40 z-20 flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <button
-                          type="button"
-                          onClick={toggleHeroPlay}
-                          aria-label={isHeroVideoPlaying ? 'Pause video' : 'Play video'}
-                          className="p-2 rounded-full bg-[#D5B77A]/20 border border-[#D5B77A]/60 text-[#D5B77A] hover:bg-[#D5B77A] hover:text-[#07140E] transition-all"
-                        >
-                          {isHeroVideoPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current" />}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={toggleHeroAudio}
-                          aria-label={isHeroAudioPlaying ? 'Mute audio' : 'Unmute audio'}
-                          className={`px-3 py-1.5 rounded-full border text-xs font-mono tracking-wider flex items-center space-x-1.5 transition-all ${
-                            isHeroAudioPlaying
-                              ? 'bg-[#D5B77A] text-[#07140E] border-[#D5B77A] font-bold shadow-[0_0_15px_rgba(213,183,122,0.8)]'
-                              : 'bg-black/50 text-[#D5B77A] border-[#D5B77A]/40 hover:border-[#D5B77A]'
-                          }`}
-                        >
-                          {isHeroAudioPlaying ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-                          <span>{isHeroAudioPlaying ? 'SOUND ON' : 'UNMUTE'}</span>
-                        </button>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() => setIsVideoModalOpen(true)}
-                        title="Expand Cinematic Theater"
-                        className="p-2 rounded-full bg-[#D5B77A]/20 border border-[#D5B77A]/60 text-[#D5B77A] hover:bg-[#D5B77A] hover:text-[#07140E] transition-all"
-                      >
-                        <Maximize2 className="w-4 h-4" />
-                      </button>
-                    </div>
+                  {/* Top Subtle Label */}
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-black/60 backdrop-blur-sm border border-white/10 text-white/80 text-[10px] tracking-widest font-sans uppercase">
+                    Transformation Film
                   </div>
-                </div>
 
-                {/* Subtitle / Caption under video */}
-                <div className="mt-3 text-center">
-                  <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#D5B77A]/80">
-                    Artisanal Flavour Transformation • 1080p Cinema Master
-                  </p>
-                </div>
-              </motion.div>
-            ) : (
-              <div className="relative w-full flex flex-col items-center">
-                {/* Background Slanted Bar 3 */}
-                <motion.div
-                  animate={{
-                    y: [-8, 8, -8],
-                    rotate: [16, 20, 16]
-                  }}
-                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute right-4 sm:right-10 top-4 w-28 sm:w-36 h-56 sm:h-72 opacity-35 filter blur-[1px] pointer-events-none rounded-sm overflow-hidden border border-[#D5B77A]/20 shadow-2xl"
-                >
-                  <img
-                    src="/images/cei-gold-truffle-bar.jpg"
-                    alt="CEI Bar 3"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-
-                {/* Background Slanted Bar 2 */}
-                <motion.div
-                  animate={{
-                    y: [8, -8, 8],
-                    rotate: [10, 14, 10]
-                  }}
-                  transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute right-14 sm:right-24 top-10 w-32 sm:w-40 h-64 sm:h-80 opacity-70 pointer-events-none rounded-sm overflow-hidden border border-[#D5B77A]/30 shadow-2xl"
-                >
-                  <img
-                    src="/images/cei-rose-pistachio-bar.jpg"
-                    alt="CEI Bar 2"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-
-                {/* Main Interactive Floating Bar with MOUSE HOVER ANIMATION */}
-                <div
-                  className="relative z-20 flex flex-col items-center cursor-pointer group select-none"
-                  onMouseEnter={() => setIsHeroBarHovered(true)}
-                  onMouseLeave={() => setIsHeroBarHovered(false)}
-                  onClick={() => setIsVideoModalOpen(true)}
-                >
-                  {/* Floating Anatomy Tooltips */}
-                  <AnimatePresence>
-                    {isHeroBarHovered && (
-                      <>
-                        {/* Tooltip 1: Top-Left (Vanilla Core) */}
-                        <motion.div
-                          initial={{ opacity: 0, x: -30, y: -20, scale: 0.8 }}
-                          animate={{ opacity: 1, x: -90, y: -40, scale: 1 }}
-                          exit={{ opacity: 0, x: -30, y: -20, scale: 0.8 }}
-                          transition={{ duration: 0.35 }}
-                          className="absolute top-12 left-0 hidden sm:flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#07140E]/95 border border-[#D5B77A] text-[#F4EBD8] shadow-2xl z-40 backdrop-blur-md whitespace-nowrap pointer-events-none"
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#D5B77A]" />
-                          <span className="text-[11px] font-sans font-medium tracking-wide">
-                            Tahitensis Orchid Vanilla Core
-                          </span>
-                        </motion.div>
-
-                        {/* Tooltip 2: Top-Right (Chocolate Shell) */}
-                        <motion.div
-                          initial={{ opacity: 0, x: 30, y: -20, scale: 0.8 }}
-                          animate={{ opacity: 1, x: 90, y: -20, scale: 1 }}
-                          exit={{ opacity: 0, x: 30, y: -20, scale: 0.8 }}
-                          transition={{ duration: 0.35, delay: 0.05 }}
-                          className="absolute top-20 right-0 hidden sm:flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#07140E]/95 border border-[#D5B77A] text-[#F4EBD8] shadow-2xl z-40 backdrop-blur-md whitespace-nowrap pointer-events-none"
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#D5B77A]" />
-                          <span className="text-[11px] font-sans font-medium tracking-wide">
-                            78% Venezuelan Chuao Shell
-                          </span>
-                        </motion.div>
-
-                        {/* Tooltip 3: Center-Right (Molten Salted Caramel) */}
-                        <motion.div
-                          initial={{ opacity: 0, x: 30, y: 20, scale: 0.8 }}
-                          animate={{ opacity: 1, x: 100, y: 70, scale: 1 }}
-                          exit={{ opacity: 0, x: 30, y: 20, scale: 0.8 }}
-                          transition={{ duration: 0.35, delay: 0.1 }}
-                          className="absolute top-44 right-0 hidden sm:flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#D5B77A] text-[#07140E] font-bold shadow-2xl z-40 whitespace-nowrap pointer-events-none"
-                        >
-                          <Flame className="w-3.5 h-3.5 fill-current" />
-                          <span className="text-[11px] font-sans tracking-wide">
-                            Molten Fleur de Sel Caramel Ribbon
-                          </span>
-                        </motion.div>
-
-                        {/* Tooltip 4: Bottom-Left (Roasted Hazelnuts) */}
-                        <motion.div
-                          initial={{ opacity: 0, x: -30, y: 20, scale: 0.8 }}
-                          animate={{ opacity: 1, x: -100, y: 130, scale: 1 }}
-                          exit={{ opacity: 0, x: -30, y: 20, scale: 0.8 }}
-                          transition={{ duration: 0.35, delay: 0.15 }}
-                          className="absolute top-52 left-0 hidden sm:flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#07140E]/95 border border-[#D5B77A] text-[#D5B77A] shadow-2xl z-40 backdrop-blur-md whitespace-nowrap pointer-events-none"
-                        >
-                          <Sparkles className="w-3.5 h-3.5" />
-                          <span className="text-[11px] font-sans font-medium tracking-wide">
-                            Slow-Roasted Langhe Hazelnuts
-                          </span>
-                        </motion.div>
-                      </>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Dynamic Toppings & Fillings Particles */}
-                  <AnimatePresence>
-                    {isHeroBarHovered && (
-                      <div className="absolute inset-0 pointer-events-none z-30">
-                        {/* Golden Caramel Droplets Flying In */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0, y: -40, x: -20 }}
-                          animate={{ opacity: 1, scale: [1, 1.3, 1], y: 10, x: 5 }}
-                          exit={{ opacity: 0, scale: 0 }}
-                          transition={{ duration: 0.5 }}
-                          className="absolute top-28 left-8 w-5 h-5 rounded-full bg-gradient-to-br from-[#FFD27D] to-[#D59836] shadow-[0_0_20px_#FFD27D] border border-white/60"
-                        />
-
-                        {/* Roasted Hazelnut Shard 1 */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0, x: 50, y: -30, rotate: 0 }}
-                          animate={{ opacity: 1, scale: 1, x: 12, y: 8, rotate: 45 }}
-                          exit={{ opacity: 0, scale: 0 }}
-                          transition={{ duration: 0.45 }}
-                          className="absolute top-20 right-10 w-6 h-4 bg-[#A36A3B] rounded-sm shadow-xl border border-[#D5B77A]/50"
-                        />
-
-                        {/* Roasted Hazelnut Shard 2 */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0, x: -60, y: 40, rotate: 0 }}
-                          animate={{ opacity: 1, scale: 1, x: -8, y: -5, rotate: -25 }}
-                          exit={{ opacity: 0, scale: 0 }}
-                          transition={{ duration: 0.5, delay: 0.08 }}
-                          className="absolute bottom-36 left-12 w-5 h-5 bg-[#8C582B] rounded-sm shadow-xl border border-[#D5B77A]/40"
-                        />
-
-                        {/* Crunchy Dark Chocolate Flakes */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0, y: -60 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0 }}
-                          transition={{ duration: 0.4 }}
-                          className="absolute top-12 left-24 w-4 h-3 bg-[#1A0E0A] rounded-sm shadow-md"
-                        />
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0, y: 60 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0 }}
-                          transition={{ duration: 0.4, delay: 0.12 }}
-                          className="absolute bottom-44 right-16 w-5 h-3.5 bg-[#26150E] rounded-sm shadow-md"
-                        />
-
-                        {/* Gold Leaf Sparkle Dust */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: [0, 1, 0.8], scale: [0.5, 1.5, 1] }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.6 }}
-                          className="absolute top-36 right-8 w-4 h-4 bg-[#FFE8A3] rounded-full blur-[1px] shadow-[0_0_15px_#FFE8A3]"
-                        />
-                      </div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* The Active Ice Cream Bar */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeBar.id}
-                      initial={{ opacity: 0, scale: 0.88, y: 40 }}
-                      animate={{
-                        opacity: 1,
-                        scale: isHeroBarHovered ? 1.08 : 1,
-                        y: isHeroBarHovered ? 0 : [-12, 12, -12],
-                        rotate: isHeroBarHovered ? 0 : [6, 10, 6]
-                      }}
-                      exit={{ opacity: 0, scale: 0.88, y: -40, rotate: 16 }}
-                      transition={{
-                        opacity: { duration: 0.5 },
-                        scale: { duration: 0.4 },
-                        y: isHeroBarHovered ? { duration: 0.3 } : { duration: 4.5, repeat: Infinity, ease: 'easeInOut' },
-                        rotate: isHeroBarHovered ? { duration: 0.3 } : { duration: 4.5, repeat: Infinity, ease: 'easeInOut' }
-                      }}
-                      className="relative select-none"
+                  {/* Minimal Floating Controls Bottom-Right */}
+                  <div className="absolute bottom-3 right-3 flex items-center space-x-2 z-20">
+                    <button
+                      type="button"
+                      onClick={toggleHeroPlay}
+                      aria-label={isHeroVideoPlaying ? 'Pause video' : 'Play video'}
+                      className="p-2 rounded-sm bg-black/70 backdrop-blur-sm border border-white/15 text-white/90 hover:text-[#C5A46D] transition-colors"
                     >
-                      <img
-                        src={activeBar.image}
-                        alt={activeBar.name}
-                        className="w-[300px] sm:w-[380px] lg:w-[420px] max-h-[560px] object-contain drop-shadow-[0_30px_70px_rgba(0,0,0,0.92)] transition-all duration-500"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Interactive Hover Guidance Below Bar */}
-                  <div className="mt-4 flex flex-col sm:flex-row items-center gap-3">
+                      {isHeroVideoPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={toggleHeroAudio}
+                      aria-label={isHeroAudioPlaying ? 'Mute audio' : 'Unmute audio'}
+                      className="p-2 rounded-sm bg-black/70 backdrop-blur-sm border border-white/15 text-white/90 hover:text-[#C5A46D] transition-colors flex items-center space-x-1.5 text-[10px] font-sans tracking-wider"
+                    >
+                      {isHeroAudioPlaying ? <Volume2 className="w-3.5 h-3.5 text-[#C5A46D]" /> : <VolumeX className="w-3.5 h-3.5" />}
+                    </button>
                     <button
                       type="button"
                       onClick={() => setIsVideoModalOpen(true)}
-                      className="px-4 py-1.5 rounded-full bg-[#07140E]/80 border border-[#D5B77A]/40 hover:border-[#D5B77A] text-[#D5B77A] text-[11px] font-sans tracking-[0.2em] uppercase flex items-center space-x-2 transition-all duration-300 hover:bg-[#D5B77A] hover:text-[#07140E] shadow-lg"
+                      title="Fullscreen Theater"
+                      className="p-2 rounded-sm bg-black/70 backdrop-blur-sm border border-white/15 text-white/90 hover:text-[#C5A46D] transition-colors"
                     >
-                      <Play className="w-3 h-3 fill-current" />
-                      <span>PLAY TASTING FILM</span>
+                      <Maximize2 className="w-3.5 h-3.5" />
                     </button>
-
-                    <div className="px-3.5 py-1.5 rounded-full bg-black/40 border border-[#D5B77A]/25 text-[10px] tracking-[0.2em] text-[#D5B77A]/90 uppercase font-mono shadow-md flex items-center space-x-2 pointer-events-none">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D5B77A] animate-ping" />
-                      <span>HOVER TO REVEAL TOPPINGS</span>
-                    </div>
                   </div>
                 </div>
-              </div>
+
+                <p className="mt-3 text-[11px] font-sans uppercase tracking-[0.2em] text-white/50 text-center font-light">
+                  Hand-Dipped at 42°C • Acoustic Single-Origin Shell
+                </p>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="minimal-bar"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                className="w-full flex flex-col items-center select-none"
+              >
+                <div className="relative py-4">
+                  <img
+                    src={activeBar.image}
+                    alt={activeBar.name}
+                    className="w-[280px] sm:w-[340px] max-h-[460px] object-contain drop-shadow-2xl"
+                  />
+                </div>
+
+                <div className="text-center mt-2">
+                  <span className="text-[10px] tracking-[0.25em] uppercase text-[#C5A46D] font-sans block mb-1">
+                    {activeBar.number}
+                  </span>
+                  <h3 className="font-serif text-xl text-[#F5F2EB] font-medium">
+                    {activeBar.name}
+                  </h3>
+                  <p className="text-xs text-white/60 font-light italic mt-1 max-w-sm">
+                    {activeBar.subtitle}
+                  </p>
+                </div>
+              </motion.div>
             )}
           </div>
         </div>
 
-        {/* ========================================================
-            Bottom Wave Section & Controls (Video Animation)
-           ======================================================== */}
-        <div className="relative w-full z-20 mt-8">
-          {/* Organic Cream SVG Wave */}
-          <div className="w-full overflow-hidden leading-none">
-            <svg viewBox="0 0 1440 90" fill="none" preserveAspectRatio="none" className="w-full h-16 sm:h-24">
-              <path
-                d="M0,45 C320,10 680,85 1040,30 C1220,10 1360,35 1440,45 L1440,90 L0,90 Z"
-                fill="#F4EBD8"
-              />
-            </svg>
+        {/* Minimal Bottom Status Bar */}
+        <div className="max-w-7xl mx-auto w-full pt-8 border-t border-white/10 flex items-center justify-between text-xs text-white/60 font-light">
+          {/* Connoisseur Rating */}
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center text-[#C5A46D]">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3 h-3 fill-[#C5A46D] text-[#C5A46D]" />
+              ))}
+            </div>
+            <span className="hidden sm:inline font-sans text-[11px] tracking-wider text-white/50">
+              Kerala Flagship • 4.98 Rating
+            </span>
           </div>
 
-          {/* Controls Bar on the Cream Surface */}
-          <div className="bg-[#F4EBD8] px-4 sm:px-8 lg:px-14 py-4 -mt-1 text-[#242321]">
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
-              {/* Left: Connoisseur Rating Proof */}
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center text-[#D5B77A]">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-[#C5A46D] text-[#C5A46D]" />
-                  ))}
-                </div>
-                <span className="hidden sm:inline text-xs font-serif italic text-[#242321]/80">
-                  Loved by Connoisseurs Worldwide • 4.98★
-                </span>
-              </div>
-
-              {/* Center: Circular Carousel Navigation Arrows (Video Animation) */}
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={handlePrevHero}
-                  className="w-10 h-10 rounded-full border border-[#242321]/30 hover:border-[#242321] hover:bg-[#242321] hover:text-[#F4EBD8] transition-all flex items-center justify-center text-[#242321]"
-                  aria-label="Previous Flavor"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={handleNextHero}
-                  className="w-10 h-10 rounded-full border border-[#242321]/30 hover:border-[#242321] hover:bg-[#242321] hover:text-[#F4EBD8] transition-all flex items-center justify-center text-[#242321]"
-                  aria-label="Next Flavor"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Right: Quick Brand Jump */}
-              <div className="flex items-center space-x-3 text-xs tracking-wider uppercase font-sans text-[#242321]/70">
-                <span className="hidden md:inline font-mono text-[11px]">
-                  CEI MAISON GLACÉE
-                </span>
-              </div>
-            </div>
+          {/* Carousel Arrows */}
+          <div className="flex items-center space-x-3">
+            <span className="text-[11px] tracking-[0.2em] uppercase font-sans text-[#C5A46D]">
+              {activeBar.number}
+            </span>
+            <button
+              onClick={handlePrevHero}
+              className="p-2 border border-white/15 hover:border-[#C5A46D] text-white/70 hover:text-white rounded-sm transition-colors"
+              aria-label="Previous"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={handleNextHero}
+              className="p-2 border border-white/15 hover:border-[#C5A46D] text-white/70 hover:text-white rounded-sm transition-colors"
+              aria-label="Next"
+            >
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </section>
 
       {/* ========================================================
-          2. OUR STORY SECTION (Matching Navbar: OUR STORY)
-          - Warm Cream Editorial Background (#F4EBD8)
-          - Rue Saint-Honoré Paris & Ginza Tokyo Heritage
+          2. OUR STORY & MALABAR TERROIR (Warm Linen #F9F7F2)
          ======================================================== */}
-      <section id="story" className="py-24 px-4 sm:px-6 lg:px-12 bg-[#F4EBD8] text-[#242321] relative">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-6 relative">
-            <div className="relative rounded-sm overflow-hidden border border-[#C5A46D]/40 shadow-2xl bg-[#242321]">
+      <section id="story" className="py-28 px-4 sm:px-8 lg:px-16 bg-[#F9F7F2] text-[#1E1C1A] border-b border-[#E5E0D7]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="lg:col-span-6">
+            <div className="relative rounded-sm overflow-hidden border border-[#E5E0D7] shadow-xl bg-white">
               <img
                 src="/images/cei-rose-pistachio-bar.jpg"
-                alt="CEI Couture Bar Creation"
-                className="w-full h-[460px] object-cover filter brightness-95 hover:scale-105 transition-transform duration-700"
+                alt="CEI Fort Kochi Atelier Bar"
+                className="w-full h-[500px] object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#242321] via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-6 left-6 right-6">
-                <span className="text-[10px] tracking-widest uppercase text-[#C5A46D] font-medium block">
-                  Fort Kochi, Kerala • Malabar Spice Terroir
+              <div className="absolute bottom-6 left-6 right-6 p-4 bg-white/90 backdrop-blur-md border border-[#E5E0D7] rounded-sm">
+                <span className="text-[9px] tracking-[0.25em] uppercase text-[#9E824C] font-sans font-semibold block mb-0.5">
+                  Fort Kochi, Kerala
                 </span>
-                <span className="font-serif text-2xl text-[#F4EBD8]">
+                <span className="font-serif text-lg text-[#1E1C1A]">
                   The Atelier of Handheld Gastronomy
                 </span>
               </div>
@@ -755,54 +465,73 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
           </div>
 
           <div className="lg:col-span-6 flex flex-col space-y-6">
-            <span className="text-xs tracking-[0.3em] uppercase text-[#8A3038] font-bold">
-              Maison Heritage & Philosophy
-            </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-medium text-[#242321] leading-tight">
-              Our Story: The Alchemy of Cold
+            <div className="flex items-center space-x-3">
+              <span className="w-6 h-[1px] bg-[#9E824C]" />
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#9E824C] font-sans font-semibold">
+                Maison Heritage & Terroir
+              </span>
+            </div>
+
+            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#1E1C1A] leading-[1.15]">
+              The Alchemy of Cold & Botanical Terroir
             </h2>
-            <div className="w-16 h-[2px] bg-[#C5A46D]" />
-            <p className="text-sm text-[#242321]/80 leading-relaxed font-normal">
-              Commercial ice cream hides behind 50% pumped atmospheric air, artificial gums, and synthetic extracts. Born along the historic spice coast of Fort Kochi, Kerala, CEI brings together classical French haute glacerie with the world's most treasured terroirs — Wayanad orchid vanilla, Malabar roast cacao, Idukki wild honey, and Sicilian nuts.
-            </p>
-            <p className="text-sm text-[#242321]/80 leading-relaxed font-normal">
-              Each bar is hand-dipped in single-origin grand cru chocolate, slow-churned with sub-15% air overrun using pure Kerala farm-fresh dairy cream, and served on custom engraved birchwood sticks. What reaches your palate is pure, unyielding luxury.
+
+            <p className="text-sm text-[#1E1C1A]/80 leading-relaxed font-light">
+              For over two thousand years, the Malabar Coast of Kerala was celebrated as the spice treasury of the world. While commercial ice cream surrendered to industrial shortcuts—50% pumped atmospheric air, artificial emulsifiers, and synthetic extracts—CEI was born to restore unyielding reverence to frozen gastronomy.
             </p>
 
-            <button
-              onClick={() => {
-                onNavigate('story');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="mt-2 self-start px-8 py-3.5 border-2 border-[#242321] text-[#242321] hover:bg-[#242321] hover:text-[#F4EBD8] transition-all text-xs tracking-[0.2em] uppercase font-bold rounded-sm shadow-md"
-            >
-              Read Full Heritage
-            </button>
+            <p className="text-sm text-[#1E1C1A]/80 leading-relaxed font-light">
+              Trained under French pastry masters and generational Italian gelatieri, our atelier unites classical cold churn technique with Kerala's most noble botanicals: Wayanad orchid vanilla, Malabar roast cacao, Idukki wild hill honey, and pure dairy cream from hill pastures.
+            </p>
+
+            <div className="grid grid-cols-3 gap-6 pt-4 border-t border-[#E5E0D7]">
+              <div>
+                <span className="font-serif text-2xl font-semibold text-[#1E1C1A] block">Sub-15%</span>
+                <span className="text-[10px] uppercase tracking-wider text-[#1E1C1A]/60 font-sans mt-0.5 block">
+                  Micro-Density
+                </span>
+              </div>
+              <div>
+                <span className="font-serif text-2xl font-semibold text-[#1E1C1A] block">72 Hours</span>
+                <span className="text-[10px] uppercase tracking-wider text-[#1E1C1A]/60 font-sans mt-0.5 block">
+                  Cold Infusion
+                </span>
+              </div>
+              <div>
+                <span className="font-serif text-2xl font-semibold text-[#1E1C1A] block">100% Pure</span>
+                <span className="text-[10px] uppercase tracking-wider text-[#1E1C1A]/60 font-sans mt-0.5 block">
+                  Zero Gums
+                </span>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={() => {
+                  onNavigate('story');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="px-8 py-3.5 bg-[#1E1C1A] text-[#F9F7F2] hover:bg-[#9E824C] hover:text-white transition-all text-xs tracking-[0.2em] uppercase font-semibold rounded-sm"
+              >
+                Read Full Heritage
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Wavy Transition: Cream -> Charcoal */}
-      <div className="w-full overflow-hidden leading-none bg-[#F4EBD8]">
-        <svg viewBox="0 0 1440 90" fill="none" preserveAspectRatio="none" className="w-full h-16 sm:h-24">
-          <path d="M0,45 C420,15 820,95 1180,35 C1310,15 1390,30 1440,40 L1440,90 L0,90 Z" fill="#171916" />
-        </svg>
-      </div>
-
       {/* ========================================================
-          3. FLAVOURS SECTION (Matching Navbar: FLAVOURS)
-          - Charcoal Black Background (#171916)
-          - 3D Breakout Cards where bars tilt out on hover!
+          3. SIGNATURE BAR FLAVOURS (Matte Charcoal Noir #141312)
          ======================================================== */}
-      <section id="flavours" className="py-24 px-4 sm:px-6 lg:px-12 bg-[#171916] text-[#F4EBD8]">
+      <section id="flavours" className="py-28 px-4 sm:px-8 lg:px-16 bg-[#141312] text-[#F5F2EB] border-b border-white/10">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
             <div>
-              <span className="text-xs tracking-[0.3em] uppercase text-[#D5B77A] font-light block mb-2">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A46D] font-sans font-semibold block mb-2">
                 Handheld Couture Portfolio
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-medium text-[#F4EBD8]">
-                Signature Bar Flavours
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#F5F2EB]">
+                The Eight Signature Flavours
               </h2>
             </div>
 
@@ -811,14 +540,14 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
                 onNavigate('flavours');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="mt-4 md:mt-0 text-xs tracking-[0.2em] uppercase text-[#D5B77A] hover:text-[#FFF4DC] transition-colors flex items-center space-x-2 font-semibold"
+              className="mt-4 md:mt-0 text-xs tracking-[0.2em] uppercase text-[#C5A46D] hover:text-white transition-colors flex items-center space-x-2 font-medium"
             >
-              <span>Explore All Flavours</span>
+              <span>View All Flavours</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
-          {/* 3D Breakout Product Cards Grid */}
+          {/* Clean 4-Column Responsive Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
             {featuredProducts.map((product) => (
               <ProductCard
@@ -831,136 +560,94 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
         </div>
       </section>
 
-      {/* Wavy Transition: Charcoal -> Forest Green */}
-      <div className="w-full overflow-hidden leading-none bg-[#171916]">
-        <svg viewBox="0 0 1440 90" fill="none" preserveAspectRatio="none" className="w-full h-16 sm:h-24">
-          <path d="M0,50 C320,10 680,95 1040,40 C1240,10 1360,40 1440,50 L1440,90 L0,90 Z" fill="#07140E" />
-        </svg>
-      </div>
-
       {/* ========================================================
-          4. FLAVOR SPOTLIGHT & PROCESS DIPPING RITUAL
-          "From Terroir to Acoustic Snap"
-          - RESTORED REAL LUXURY ICE CREAM BAR PHOTOGRAPHY!
-          - Real, mouth-watering photos corresponding to each step
+          4. THE DIPPING RITUAL ("From Terroir to Acoustic Snap")
          ======================================================== */}
-      <section id="spotlight" className="relative py-28 px-4 sm:px-8 lg:px-14 bg-[#07140E] text-[#F4EBD8] overflow-hidden">
-        {/* Giant Faint Background Watermark */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-          <span className="font-display text-[22vw] font-black uppercase text-[#D5B77A]/5 leading-none whitespace-nowrap">
-            ATELIER
-          </span>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-xs font-bold tracking-[0.3em] uppercase text-[#D5B77A]">
-              THE CEI DIPPING RITUAL
+      <section id="spotlight" className="py-28 px-4 sm:px-8 lg:px-16 bg-[#100F0E] text-[#F5F2EB] border-b border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-[#C5A46D] font-semibold block mb-2">
+              The Atelier Process
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-medium text-[#F4EBD8] mt-2">
+            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#F5F2EB]">
               From Terroir to Acoustic Snap
             </h2>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left: 4-Step Ritual Navigation Pills */}
-            <div className="lg:col-span-4 flex flex-col space-y-4">
+            {/* Step Selection Tabs */}
+            <div className="lg:col-span-4 flex flex-col space-y-3">
               {[
-                { step: 0, num: '01', title: 'TERROIR INGREDIENTS' },
-                { step: 1, num: '02', title: '42°C CHOCOLATE DIP' },
+                { step: 0, num: '01', title: 'TERROIR BOTANICALS' },
+                { step: 1, num: '02', title: '42°C CHOCOLATE ENROBING' },
                 { step: 2, num: '03', title: 'HAND-GARNISHED TOPPINGS' },
-                { step: 3, num: '04', title: 'ACOUSTIC SNAP' }
+                { step: 3, num: '04', title: 'THE ACOUSTIC SNAP' }
               ].map((item) => (
                 <button
                   key={item.step}
                   onClick={() => setSpotlightStep(item.step)}
-                  className={`flex items-center space-x-3 px-5 py-3.5 rounded-sm border text-left transition-all ${
+                  className={`flex items-center space-x-4 px-5 py-3.5 rounded-sm border text-left transition-all ${
                     spotlightStep === item.step
-                      ? 'bg-[#D5B77A] text-[#07140E] border-[#D5B77A] font-bold shadow-lg scale-102'
-                      : 'bg-white/5 text-[#F4EBD8]/70 border-white/10 hover:border-[#D5B77A]/40'
+                      ? 'bg-white/10 text-[#C5A46D] border-[#C5A46D] font-semibold'
+                      : 'bg-white/5 text-white/60 border-white/10 hover:border-white/30'
                   }`}
                 >
-                  <span className="font-mono text-xs opacity-75">{item.num}</span>
-                  <span className="text-xs uppercase tracking-wider">{item.title}</span>
+                  <span className="font-mono text-xs opacity-60">{item.num}</span>
+                  <span className="text-xs uppercase tracking-wider font-sans">{item.title}</span>
                 </button>
               ))}
             </div>
 
-            {/* Center: REAL LUXURY ICE CREAM BAR PHOTOGRAPHY (RESTORED AS REQUESTED) */}
-            <div className="lg:col-span-4 relative flex items-center justify-center min-h-[460px]">
+            {/* Ice Cream Bar Photo Display */}
+            <div className="lg:col-span-4 flex items-center justify-center min-h-[440px]">
               <motion.div
                 key={spotlightStep}
-                initial={{ y: 40, opacity: 0, scale: 0.95 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                transition={{ duration: 0.55, ease: 'easeOut' }}
-                className="relative flex flex-col items-center select-none"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="relative flex flex-col items-center"
               >
-                {/* 3D Flying Particles Burst (Toppings by the handful) */}
-                {spotlightStep >= 2 && (
-                  <>
-                    <motion.div
-                      animate={{ y: [-15, 15, -15], x: [-12, 12, -12], rotate: [0, 90, 0] }}
-                      transition={{ duration: 4, repeat: Infinity }}
-                      className="absolute -top-8 -left-10 w-6 h-3 bg-[#D5B77A] rounded-sm shadow-md pointer-events-none z-30 opacity-90"
-                    />
-                    <motion.div
-                      animate={{ y: [12, -12, 12], x: [10, -10, 10], rotate: [30, -30, 30] }}
-                      transition={{ duration: 3.5, repeat: Infinity }}
-                      className="absolute -top-4 -right-8 w-5 h-2.5 bg-[#8A3038] rounded-sm shadow-md pointer-events-none z-30 opacity-90"
-                    />
-                    <motion.div
-                      animate={{ y: [-10, 15, -10], x: [-8, 12, -8] }}
-                      transition={{ duration: 5, repeat: Infinity }}
-                      className="absolute top-24 -left-12 w-4 h-4 rounded-full bg-[#D5B77A]/60 pointer-events-none z-30"
-                    />
-                  </>
-                )}
+                <img
+                  src={
+                    spotlightStep === 0
+                      ? '/images/cei-white-chocolate-macadamia.jpg'
+                      : spotlightStep === 1
+                      ? '/images/hero-ice-cream-bar.jpg'
+                      : spotlightStep === 2
+                      ? '/images/cei-rose-pistachio-bar.jpg'
+                      : '/images/hero-ice-cream-bar.jpg'
+                  }
+                  alt="CEI Dipping Bar"
+                  className="w-[280px] sm:w-[320px] max-h-[460px] object-contain drop-shadow-2xl"
+                />
 
-                {/* REAL ICE CREAM BAR PHOTO */}
-                <div className="relative group cursor-pointer">
-                  <img
-                    src={
-                      spotlightStep === 0
-                        ? '/images/cei-white-chocolate-macadamia.jpg'
-                        : spotlightStep === 1
-                        ? '/images/hero-ice-cream-bar.jpg'
-                        : spotlightStep === 2
-                        ? '/images/cei-rose-pistachio-bar.jpg'
-                        : '/images/hero-ice-cream-bar.jpg'
-                    }
-                    alt="CEI Dipping Ritual Bar"
-                    className="w-[280px] sm:w-[320px] max-h-[460px] object-contain drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] transition-transform duration-500 group-hover:scale-105"
-                  />
-
-                  {/* Active Step Status Overlay */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[#07140E]/90 border border-[#D5B77A]/60 text-[#D5B77A] text-[10px] font-mono tracking-widest uppercase whitespace-nowrap shadow-xl">
-                    {spotlightStep === 0 && '✦ STEP 01: TAHITENSIS VANILLA CORE ✦'}
-                    {spotlightStep === 1 && '✦ STEP 02: 42°C DARK CRIOLLO DIP ✦'}
-                    {spotlightStep === 2 && '✦ STEP 03: ROSE PETALS & PISTACHIOS ✦'}
-                    {spotlightStep === 3 && '✦ STEP 04: ACOUSTIC SHELL SNAP ✦'}
-                  </div>
-                </div>
+                <span className="mt-4 text-[10px] tracking-[0.25em] uppercase text-white/50 font-sans">
+                  {spotlightStep === 0 && 'Step 01: Wayanad Orchid & Jersey Cream'}
+                  {spotlightStep === 1 && 'Step 02: 42°C Grand Cru Criollo Dip'}
+                  {spotlightStep === 2 && 'Step 03: Damask Rose & Pistachio Shower'}
+                  {spotlightStep === 3 && 'Step 04: The Acoustic Cacao Shell Shatter'}
+                </span>
               </motion.div>
             </div>
 
-            {/* Right: Editorial Process Description */}
-            <div className="lg:col-span-4 flex flex-col space-y-6 text-left">
+            {/* Editorial Description */}
+            <div className="lg:col-span-4 flex flex-col space-y-5 text-left">
               <div>
-                <h3 className="font-serif text-3xl font-medium text-[#F4EBD8] leading-tight mb-2">
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#F5F2EB] leading-tight mb-3">
                   {spotlightStep === 0 && 'Single-Origin Farm Terroir.'}
                   {spotlightStep === 1 && 'Dipped at Exactly 42°C.'}
                   {spotlightStep === 2 && 'Toppings, by the Handful.'}
                   {spotlightStep === 3 && 'The Pure Acoustic Snap.'}
                 </h3>
-                <p className="text-sm text-[#F4EBD8]/80 leading-relaxed font-light">
+                <p className="text-sm text-white/70 leading-relaxed font-light">
                   {spotlightStep === 0 &&
-                    'Sub-15% air overrun gelato churned with fresh double cream and direct-trade Tahitensis orchid beans.'}
+                    'Sub-15% air overrun gelato slow-churned with pure Kerala farm cream and direct-trade Wayanad orchid vanilla.'}
                   {spotlightStep === 1 &&
-                    '78% single-origin Venezuelan Criollo chocolate creates a crackling acoustic shell.'}
+                    '78% single-origin Venezuelan Criollo chocolate is warmed to 42°C, creating an ultra-crisp, crystalized outer shell.'}
                   {spotlightStep === 2 &&
-                    'Candied Damask rose petals, Langhe hazelnuts, and Bronte pistachios showered by hand before setting.'}
+                    'Crystallised Damask rose petals, Langhe hazelnuts, and Bronte pistachios showered by hand before chocolate sets.'}
                   {spotlightStep === 3 &&
-                    'Shattering the crackled chocolate shell reveals luscious Fleur de Sel golden caramel and velvety gelato.'}
+                    'A gentle bite shatters the crackled chocolate shell to release molten golden caramel and dense, silky gelato.'}
                 </p>
               </div>
 
@@ -970,9 +657,9 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
                     const el = document.getElementById('customizer');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="px-7 py-3 border border-[#D5B77A] text-[#D5B77A] hover:bg-[#D5B77A] hover:text-[#07140E] transition-all text-xs uppercase tracking-widest font-semibold rounded-sm"
+                  className="px-7 py-3 border border-white/25 text-white/90 hover:border-[#C5A46D] hover:text-[#C5A46D] transition-all text-xs uppercase tracking-widest font-semibold rounded-sm"
                 >
-                  CUSTOMIZE YOUR BAR
+                  Custom Atelier Bar
                 </button>
               </div>
             </div>
@@ -981,56 +668,52 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
       </section>
 
       {/* ========================================================
-          5. OUR MISSION SECTION (Matching Navbar: OUR MISSION)
-          - Deep Forest Green with the 3 Cryogenic / Terroir Pillars
+          5. THREE UNCOMPROMISING PILLARS
          ======================================================== */}
-      <section id="mission" className="py-24 px-4 sm:px-6 lg:px-12 bg-[#04100B] text-[#F4EBD8] border-t border-b border-[#D5B77A]/15">
+      <section id="mission" className="py-24 px-4 sm:px-8 lg:px-16 bg-[#141312] text-[#F5F2EB] border-b border-white/10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs tracking-[0.3em] uppercase text-[#D5B77A] font-light block mb-2">
-              Three Uncompromising Pillars
+            <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A46D] font-sans font-semibold block mb-2">
+              Three Guiding Standards
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-medium text-[#F4EBD8]">
+            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#F5F2EB]">
               Our Mission
             </h2>
-            <p className="text-xs sm:text-sm text-[#F4EBD8]/70 font-light mt-3">
-              Restoring absolute reverence to cold gastronomy from farm terroir to cryogenic case.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-sm bg-[#07140E] border border-[#D5B77A]/25 hover:border-[#D5B77A]/60 transition-all flex flex-col justify-between shadow-xl">
+            <div className="p-8 rounded-sm bg-[#161514] border border-white/10 flex flex-col justify-between">
               <div>
-                <ShieldCheck className="w-8 h-8 text-[#D5B77A] mb-4" />
-                <h3 className="font-serif text-xl font-medium text-[#F4EBD8] mb-2">
+                <ShieldCheck className="w-7 h-7 text-[#C5A46D] mb-4" />
+                <h3 className="font-serif text-xl font-medium text-[#F5F2EB] mb-2">
                   Terroir-First Purity
                 </h3>
-                <p className="text-xs text-[#F4EBD8]/70 font-light leading-relaxed">
-                  Direct trade with family farms in Chuao, Bronte, and Tahiti. Zero artificial gums, palm oils, or chemical stabilizers.
+                <p className="text-xs text-white/60 font-light leading-relaxed">
+                  Direct agricultural partnerships with spice estates in Wayanad, Idukki, Chuao, and Sicily. Zero synthetic gums, palm oils, or artificial stabilizers.
                 </p>
               </div>
             </div>
 
-            <div className="p-8 rounded-sm bg-[#07140E] border border-[#D5B77A]/25 hover:border-[#D5B77A]/60 transition-all flex flex-col justify-between shadow-xl">
+            <div className="p-8 rounded-sm bg-[#161514] border border-white/10 flex flex-col justify-between">
               <div>
-                <ThermometerSnowflake className="w-8 h-8 text-[#D5B77A] mb-4" />
-                <h3 className="font-serif text-xl font-medium text-[#F4EBD8] mb-2">
-                  -78.5°C Cryo-Lock Box
+                <ThermometerSnowflake className="w-7 h-7 text-[#C5A46D] mb-4" />
+                <h3 className="font-serif text-xl font-medium text-[#F5F2EB] mb-2">
+                  -78.5°C Cryo-Lock Transit
                 </h3>
-                <p className="text-xs text-[#F4EBD8]/70 font-light leading-relaxed">
-                  Shipped in compostable mycelium packaging with solid carbon dioxide dry ice. Guaranteed -18°C arrival nationwide.
+                <p className="text-xs text-white/60 font-light leading-relaxed">
+                  Dispatched in solid carbon dioxide insulated cases. Guaranteed rock-solid -18°C arrival anywhere across Kerala and India.
                 </p>
               </div>
             </div>
 
-            <div className="p-8 rounded-sm bg-[#07140E] border border-[#D5B77A]/25 hover:border-[#D5B77A]/60 transition-all flex flex-col justify-between shadow-xl">
+            <div className="p-8 rounded-sm bg-[#161514] border border-white/10 flex flex-col justify-between">
               <div>
-                <Award className="w-8 h-8 text-[#D5B77A] mb-4" />
-                <h3 className="font-serif text-xl font-medium text-[#F4EBD8] mb-2">
+                <Award className="w-7 h-7 text-[#C5A46D] mb-4" />
+                <h3 className="font-serif text-xl font-medium text-[#F5F2EB] mb-2">
                   Haute Gastronomie Standard
                 </h3>
-                <p className="text-xs text-[#F4EBD8]/70 font-light leading-relaxed">
-                  Collaborations with 3-Michelin-star restaurants, superyacht concierge, and international sommelier societies.
+                <p className="text-xs text-white/60 font-light leading-relaxed">
+                  Formulated to the uncompromising micro-overrun standards of Michelin-star pastry kitchens and private coastal salons.
                 </p>
               </div>
             </div>
@@ -1039,116 +722,117 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
       </section>
 
       {/* ========================================================
-          6. "PICK. DIP. TOP." BESPOKE ATELIER DIPPING SALON
-          "Tahitian Vanilla gelato, 78% chuao dark, damask rose petals."
-          - RESTORED REAL LUXURY ICE CREAM BAR PHOTO!
-          - Specifically displaying the real couture Damask Rose & Pistachio bar
+          6. "PICK. DIP. TOP." BESPOKE ATELIER DIPPING SALON (Warm Cream #F5F2EB)
          ======================================================== */}
-      <section id="customizer" className="py-24 px-4 sm:px-8 lg:px-14 bg-[#F4EBD8] text-[#242321]">
+      <section id="customizer" className="py-24 px-4 sm:px-8 lg:px-16 bg-[#F5F2EB] text-[#1E1C1A] border-b border-[#E5E0D7]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-xs font-bold tracking-[0.3em] uppercase text-[#8A3038] block mb-2">
-              BESPOKE ATELIER DIPPING SALON
+            <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-[#9E824C] font-semibold block mb-2">
+              Atelier Sur Mesure
             </span>
-            <h2 className="font-serif text-4xl sm:text-6xl font-medium text-[#242321] leading-tight">
-              Pick. Dip. Top.
+            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#1E1C1A]">
+              Craft Your Bespoke Couture Bar
             </h2>
-            <p className="text-base font-serif italic text-[#8A3038] mt-2">
-              {customGelato} gelato, {customDip.toLowerCase()}, {customTopping.toLowerCase()}.
+            <p className="text-xs sm:text-sm text-[#1E1C1A]/70 font-light mt-2 max-w-xl mx-auto">
+              Select your slow-churned gelato core, warm grand cru chocolate enrobing, and hand-adorned botanicals.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left: REAL LUXURY BAR PHOTO PREVIEW (RESTORED AS REQUESTED) */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center p-8 bg-white/90 rounded-sm border border-[#D5B77A]/40 shadow-2xl relative min-h-[480px]">
-              <span className="absolute top-4 text-[10px] tracking-widest uppercase font-mono text-[#242321]/50">
-                ✦ BESPOKE ATELIER CREATION ✦
-              </span>
+            {/* Left: Interactive Real Bar Preview */}
+            <div className="lg:col-span-5 flex flex-col items-center">
+              <div className="p-8 rounded-sm bg-white border border-[#E5E0D7] shadow-xl w-full flex flex-col items-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`${customGelato}-${customDip}-${customTopping}`}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="relative py-4"
+                  >
+                    <img
+                      src={getCustomizerPhoto()}
+                      alt="Custom CEI Bar"
+                      className="w-56 sm:w-64 max-h-72 object-contain"
+                    />
+                  </motion.div>
+                </AnimatePresence>
 
-              <motion.div
-                key={customTopping + customDip}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{
-                  opacity: 1,
-                  scale: isSurpriseActive ? [1, 1.08, 1] : 1,
-                  rotate: isSurpriseActive ? [0, 6, -6, 0] : 0
-                }}
-                transition={{ duration: 0.45 }}
-                className="relative flex flex-col items-center my-auto select-none"
-              >
-                {/* REAL HIGH-RESOLUTION ICE CREAM BAR PHOTOGRAPHY */}
-                <img
-                  src={getCustomizerPhoto()}
-                  alt="Custom Gelato Bar"
-                  className="w-[280px] sm:w-[320px] max-h-[440px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.4)] transition-transform duration-500 hover:scale-105"
-                />
-
-                {/* Real-time Badge on Photo */}
-                <div className="mt-2 px-4 py-1.5 rounded-full bg-[#07140E] text-[#D5B77A] text-[11px] font-sans font-bold uppercase tracking-wider shadow-lg flex items-center space-x-2">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>{customGelato} • {customTopping}</span>
+                <div className="text-center pt-4 border-t border-[#E5E0D7] w-full">
+                  <span className="text-[9px] tracking-widest uppercase text-[#9E824C] font-sans block mb-1">
+                    Bespoke Formulation
+                  </span>
+                  <h4 className="font-serif text-lg text-[#1E1C1A] font-medium">
+                    {customGelato} & {customDip}
+                  </h4>
+                  <p className="text-xs text-[#1E1C1A]/60 font-light italic mt-0.5">
+                    Garnished with {customTopping}
+                  </p>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
-            {/* Right: Interactive Pill Selectors */}
-            <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
+            {/* Right: Tactile Minimal Selectors */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* 1. Gelato Base */}
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#242321]/60 block mb-2.5">
-                  1. SELECT GELATO BASE:
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1E1C1A]/60 block mb-2">
+                  1. Select Gelato Base:
                 </span>
-                <div className="flex flex-wrap gap-2.5">
-                  {gelatoOptions.map((g) => (
+                <div className="flex flex-wrap gap-2">
+                  {gelatoOptions.map((opt) => (
                     <button
-                      key={g.name}
-                      onClick={() => setCustomGelato(g.name)}
-                      className={`px-4 py-2 rounded-full text-xs font-semibold transition-all flex items-center space-x-2 ${
-                        customGelato === g.name
-                          ? 'bg-[#07140E] text-[#D5B77A] shadow-md scale-105'
-                          : 'bg-white border border-[#242321]/20 text-[#242321] hover:border-[#242321]'
+                      key={opt.name}
+                      onClick={() => setCustomGelato(opt.name)}
+                      className={`px-4 py-2 rounded-sm text-xs font-medium transition-all ${
+                        customGelato === opt.name
+                          ? 'bg-[#1E1C1A] text-white'
+                          : 'bg-white border border-[#E5E0D7] text-[#1E1C1A] hover:border-[#1E1C1A]'
                       }`}
                     >
-                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: g.color }} />
-                      <span>{g.name}</span>
+                      {opt.name}
                     </button>
                   ))}
                 </div>
               </div>
 
+              {/* 2. Chocolate Enrobing */}
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#242321]/60 block mb-2.5">
-                  2. SELECT CHOCOLATE DIP:
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1E1C1A]/60 block mb-2">
+                  2. Select Warm Chocolate Enrobing (42°C):
                 </span>
-                <div className="flex flex-wrap gap-2.5">
-                  {dipOptions.map((d) => (
+                <div className="flex flex-wrap gap-2">
+                  {dipOptions.map((dip) => (
                     <button
-                      key={d}
-                      onClick={() => setCustomDip(d)}
-                      className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${
-                        customDip === d
-                          ? 'bg-[#07140E] text-[#D5B77A] shadow-md scale-105'
-                          : 'bg-white border border-[#242321]/20 text-[#242321] hover:border-[#242321]'
+                      key={dip}
+                      onClick={() => setCustomDip(dip)}
+                      className={`px-4 py-2 rounded-sm text-xs font-medium transition-all ${
+                        customDip === dip
+                          ? 'bg-[#1E1C1A] text-white'
+                          : 'bg-white border border-[#E5E0D7] text-[#1E1C1A] hover:border-[#1E1C1A]'
                       }`}
                     >
-                      {d}
+                      {dip}
                     </button>
                   ))}
                 </div>
               </div>
 
+              {/* 3. Hand-Garnished Topping */}
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#242321]/60 block mb-2.5">
-                  3. SELECT HAND-GARNISHED TOPPING:
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1E1C1A]/60 block mb-2">
+                  3. Select Hand-Garnished Topping:
                 </span>
-                <div className="flex flex-wrap gap-2.5">
+                <div className="flex flex-wrap gap-2">
                   {toppingOptions.map((top) => (
                     <button
                       key={top}
                       onClick={() => setCustomTopping(top)}
-                      className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                      className={`px-4 py-2 rounded-sm text-xs font-medium transition-all ${
                         customTopping === top
-                          ? 'bg-[#07140E] text-[#D5B77A] shadow-md scale-105'
-                          : 'bg-white border border-[#242321]/20 text-[#242321] hover:border-[#242321]'
+                          ? 'bg-[#1E1C1A] text-white'
+                          : 'bg-white border border-[#E5E0D7] text-[#1E1C1A] hover:border-[#1E1C1A]'
                       }`}
                     >
                       {top}
@@ -1157,21 +841,22 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
                 </div>
               </div>
 
+              {/* Book Actions */}
               <div className="pt-4 flex flex-wrap items-center gap-4">
                 <button
                   onClick={handleBookCustomBar}
-                  className="px-8 py-3.5 bg-[#07140E] text-[#D5B77A] hover:bg-[#D5B77A] hover:text-[#07140E] transition-all text-xs font-bold uppercase tracking-widest rounded-sm shadow-xl flex items-center space-x-2"
+                  className="px-8 py-3.5 bg-[#1E1C1A] text-white hover:bg-[#9E824C] transition-all text-xs font-semibold uppercase tracking-widest rounded-sm flex items-center space-x-2"
                 >
                   <ShoppingBag className="w-4 h-4" />
-                  <span>BOOK THIS BAR (₹490)</span>
+                  <span>Craft & Add To Case • ₹490</span>
                 </button>
 
                 <button
                   onClick={handleSurpriseMe}
-                  className="px-6 py-3.5 bg-white border border-[#242321]/30 text-[#242321] hover:bg-[#242321] hover:text-[#F4EBD8] transition-all text-xs font-semibold uppercase tracking-wider rounded-sm flex items-center space-x-1.5"
+                  className="px-6 py-3.5 bg-white border border-[#E5E0D7] text-[#1E1C1A] hover:border-[#1E1C1A] transition-all text-xs font-medium uppercase tracking-wider rounded-sm flex items-center space-x-1.5"
                 >
                   <Wand2 className="w-3.5 h-3.5" />
-                  <span>SURPRISE ME</span>
+                  <span>Surprise Me</span>
                 </button>
               </div>
             </div>
@@ -1180,18 +865,17 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
       </section>
 
       {/* ========================================================
-          7. SHOP SECTION (Matching Navbar: SHOP)
-          - Presentation Hampers & Tasting Flights
+          7. CURATED TASTING FLIGHT HAMPERS (Shop Preview)
          ======================================================== */}
-      <section id="shop" className="py-24 px-4 sm:px-6 lg:px-12 bg-[#171916] text-[#F4EBD8] border-t border-[#D5B77A]/15">
+      <section id="shop" className="py-24 px-4 sm:px-8 lg:px-16 bg-[#141312] text-[#F5F2EB] border-b border-white/10">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
-              <span className="text-xs tracking-[0.3em] uppercase text-[#D5B77A] font-light block mb-2">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A46D] font-sans font-semibold block mb-2">
                 Presentation Hampers & Flights
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-medium text-[#F4EBD8]">
-                Shop Gift Collections
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#F5F2EB]">
+                Curated Gift Boxes
               </h2>
             </div>
 
@@ -1200,7 +884,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
                 onNavigate('shop');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="mt-4 md:mt-0 text-xs tracking-[0.2em] uppercase text-[#D5B77A] hover:text-[#FFF4DC] transition-colors flex items-center space-x-1.5 font-bold"
+              className="mt-4 md:mt-0 text-xs tracking-[0.2em] uppercase text-[#C5A46D] hover:text-white transition-colors flex items-center space-x-1.5 font-semibold"
             >
               <span>View Full Shop</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -1211,28 +895,39 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
             {TASTING_FLIGHTS.map((flight) => (
               <div
                 key={flight.id}
-                className="p-8 rounded-sm bg-[#07140E] border border-[#D5B77A]/30 hover:border-[#D5B77A] transition-all flex flex-col justify-between shadow-2xl relative"
+                className="p-8 rounded-sm bg-[#161514] border border-white/10 hover:border-[#C5A46D]/60 transition-all flex flex-col justify-between shadow-xl"
               >
                 <div>
-                  <span className="text-[10px] tracking-widest uppercase text-[#D5B77A] font-bold block mb-1">
+                  <span className="text-[9px] tracking-widest uppercase text-[#C5A46D] font-semibold block mb-1">
                     {flight.badge}
                   </span>
-                  <h3 className="font-serif text-2xl font-medium text-[#F4EBD8] mb-2">
+                  <h3 className="font-serif text-2xl font-medium text-[#F5F2EB] mb-2">
                     {flight.name}
                   </h3>
-                  <p className="text-xs text-[#F4EBD8]/70 font-light leading-relaxed mb-4">
+                  <p className="text-xs text-white/60 font-light leading-relaxed mb-6">
                     {flight.description}
                   </p>
+
+                  <div className="space-y-1.5 mb-6 text-xs text-white/80 font-light">
+                    {flight.items.map((item, idx) => (
+                      <div key={idx} className="flex items-center space-x-2">
+                        <Check className="w-3.5 h-3.5 text-[#C5A46D] shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="pt-6 border-t border-[#D5B77A]/15 flex items-center justify-between">
-                  <span className="font-serif text-2xl font-bold text-[#D5B77A]">₹{flight.price.toLocaleString('en-IN')}</span>
+                <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+                  <span className="font-serif text-2xl font-semibold text-[#C5A46D]">
+                    ₹{flight.price.toLocaleString('en-IN')}
+                  </span>
                   <button
                     onClick={() => {
                       addToCart(PRODUCTS[0], 1, 'tasting-flight', flight.name);
                       setIsCartOpen(true);
                     }}
-                    className="px-6 py-2.5 bg-[#D5B77A] text-[#07140E] hover:brightness-110 text-xs uppercase tracking-wider font-semibold rounded-sm shadow-xl transition-all"
+                    className="px-6 py-2.5 bg-[#C5A46D] text-[#121110] hover:brightness-110 text-xs uppercase tracking-wider font-semibold rounded-sm transition-all"
                   >
                     Add Presentation Box
                   </button>
@@ -1244,90 +939,53 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
       </section>
 
       {/* ========================================================
-          8. CONTACT & #PICKYOURVIBE CHOCOLATE SPLASH FINALE (Video Animation)
-          - Dark Chocolate Swirl Splash Animation wrapping around signature bar
-          - VIP Salon Concierge & Boutiques
+          8. ATELIER SALONS INVITATION SECTION (Connecting to Footer)
          ======================================================== */}
-      <footer id="contact" className="relative py-24 px-4 sm:px-8 lg:px-14 bg-[#07140E] text-[#F4EBD8] overflow-hidden border-t border-[#D5B77A]/20">
-        <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
-          <span className="text-xs tracking-[0.3em] uppercase text-[#D5B77A] font-light mb-3">
-            MAISON CEI SALONS & CONCIERGE
+      <section className="py-24 px-4 sm:px-8 lg:px-16 bg-[#100F0E] text-[#F5F2EB]">
+        <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
+          <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A46D] font-sans font-semibold mb-3">
+            Kerala & India Boutiques
           </span>
-          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black uppercase text-[#F4EBD8] tracking-tight mb-6">
-            #PICKYOURVIBE
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#F5F2EB] mb-4">
+            Visit the Flagship Tasting Salons
           </h2>
-
-          <p className="text-xs sm:text-sm text-[#F4EBD8]/70 font-light max-w-lg mb-8">
-            Ginza Tokyo (Flagship) • Rue Saint-Honoré Paris • Mayfair London • Dubai Mall • Madison Avenue New York
+          <p className="text-xs sm:text-sm text-white/60 font-light max-w-lg mb-10 leading-relaxed">
+            Experience our grand cru cold enrobing counter, sommelier tea pairings, and custom flight cases.
           </p>
 
-          {/* Center 3D Chocolate Splash Bar Showcase (Video Animation) */}
-          <div className="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center mb-10">
-            <div className="absolute inset-0 rounded-full bg-[#D5B77A]/10 blur-[60px] pointer-events-none" />
-
-            {/* Rotating Chocolate Splash Swirl SVG Ring */}
-            <svg
-              className="absolute inset-0 w-full h-full text-[#D5B77A]/30 animate-[spin_40s_linear_infinite]"
-              viewBox="0 0 200 200"
-              fill="currentColor"
-            >
-              <path
-                d="M100 10 C150 10 190 50 190 100 C190 150 150 190 100 190 C50 190 10 150 10 100 C10 50 50 10 100 10 Z"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="4"
-                strokeDasharray="20 10"
-              />
-            </svg>
-
-            <motion.div
-              animate={{ y: [-8, 8, -8], rotate: [-2, 2, -2] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative z-10 flex flex-col items-center select-none"
-            >
-              <img
-                src="/images/hero-ice-cream-bar.jpg"
-                alt="CEI Signature Bar"
-                className="w-32 sm:w-40 max-h-56 object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
-              />
-            </motion.div>
-          </div>
-
-          {/* Email Newsletter Box */}
-          <div className="w-full max-w-md mb-12">
-            <p className="text-xs text-[#F4EBD8]/70 mb-3 font-light">
-              Receive private invitations to confidential micro-batch releases and secret salon tastings.
-            </p>
-            <div className="flex items-center rounded-sm bg-[#171916] border border-[#D5B77A]/30 p-1 focus-within:border-[#D5B77A] transition-colors">
-              <input
-                type="email"
-                placeholder="ENTER YOUR PRIVATE EMAIL"
-                className="w-full bg-transparent px-4 py-2.5 text-xs text-[#F4EBD8] placeholder:text-[#F4EBD8]/30 focus:outline-none uppercase tracking-wider font-sans"
-              />
-              <button
-                className="px-5 py-2.5 bg-[#D5B77A] text-[#07140E] hover:brightness-110 font-bold text-xs uppercase tracking-wider rounded-sm shrink-0 transition-all flex items-center justify-center"
-                aria-label="Submit Email"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mb-12">
+            {BOUTIQUES.map((b) => (
+              <div
+                key={b.id}
+                className="p-5 rounded-sm bg-[#161514] border border-white/10 text-left flex flex-col justify-between space-y-3"
               >
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+                <div>
+                  <h4 className="font-serif text-base text-[#F5F2EB] font-medium mb-0.5">
+                    {b.city}
+                  </h4>
+                  <span className="text-[10px] tracking-wider text-[#C5A46D] uppercase block mb-2">
+                    {b.district}
+                  </span>
+                  <div className="flex items-start space-x-2 text-xs text-white/60 font-light">
+                    <MapPin className="w-3.5 h-3.5 text-[#C5A46D] shrink-0 mt-0.5" />
+                    <span className="line-clamp-2">{b.address}</span>
+                  </div>
+                </div>
 
-          {/* Bottom Legal / Trademark */}
-          <div className="w-full pt-8 border-t border-[#D5B77A]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-[#F4EBD8]/40 space-y-4 sm:space-y-0">
-            <div>
-              © {new Date().getFullYear()} CEI Haute Glacerie S.A. All rights reserved. Worldwide protected trademark.
-            </div>
-            <div className="flex items-center space-x-6 text-[11px]">
-              <span>Privacy Policy</span>
-              <span>•</span>
-              <span>Cryo-Chain Terms</span>
-              <span>•</span>
-              <span>Terroir Sourcing</span>
-            </div>
+                <button
+                  onClick={() => {
+                    onNavigate('contact');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="pt-2 text-[10px] uppercase tracking-wider text-[#C5A46D] hover:underline text-left font-sans"
+                >
+                  Reserve Tasting →
+                </button>
+              </div>
+            ))}
           </div>
         </div>
-      </footer>
+      </section>
     </div>
   );
 };

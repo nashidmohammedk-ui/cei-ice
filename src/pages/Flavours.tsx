@@ -167,29 +167,23 @@ export const Flavours: React.FC<FlavoursProps> = ({
   return (
     <div className="bg-cei-dark text-cei-cream pt-28 pb-24 min-h-screen">
       {/* ========================================================
-          1. COUTURE BAR INTRODUCTION ANIMATION SECTION
-          (Cinematic entrance animation, interactive anatomy hotspots, acoustic snap)
+          1. COUTURE BAR INTRODUCTION SECTION (Minimal & Clean)
          ======================================================== */}
-      <section className="relative px-4 sm:px-6 lg:px-8 pt-6 pb-20 border-b border-cei-gold/15 overflow-hidden bg-gradient-to-b from-[#07140E] via-[#0A1A13] to-[#07140E]">
-        {/* Ambient Dark Emerald Background & Glow */}
-        <div className="absolute inset-0 bg-radial-glow pointer-events-none opacity-40" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cei-gold/10 rounded-full blur-[160px] pointer-events-none" />
-
+      <section className="relative px-4 sm:px-6 lg:px-8 pt-6 pb-20 border-b border-white/10 bg-[#121110]">
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-cei-gold/40 bg-cei-surface/60 mb-3 shadow-lg">
-              <Sparkles className="w-3.5 h-3.5 text-cei-gold animate-pulse" />
-              <span className="text-[10px] tracking-[0.3em] uppercase text-cei-gold font-semibold">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-sm border border-white/15 bg-white/5 mb-3">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A46D] font-medium font-sans">
                 Collection Introduction • L'Atelier Bâtonnet
               </span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-cei-cream mb-3">
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#F5F2EB] mb-3">
               The Architecture of Haute Glacerie
             </h1>
 
-            <p className="font-serif text-sm sm:text-lg text-cei-cream/75 max-w-2xl mx-auto font-light italic leading-relaxed">
+            <p className="font-serif text-sm sm:text-lg text-white/70 max-w-2xl mx-auto font-light italic leading-relaxed">
               Every CEI bar is hand-dipped in grand cru single-origin chocolate with sub-15% overrun slow-churned cream on laser-engraved birchwood sticks.
             </p>
 
@@ -206,10 +200,10 @@ export const Flavours: React.FC<FlavoursProps> = ({
                     setIntroBar(bar.id as any);
                     setActiveHotspot(null);
                   }}
-                  className={`px-4 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-300 font-sans ${
+                  className={`px-4 py-2 rounded-sm text-xs tracking-wider uppercase transition-all duration-300 font-sans ${
                     introBar === bar.id
-                      ? 'bg-gradient-to-r from-cei-gold-dark via-cei-gold to-cei-gold-light text-cei-dark font-bold shadow-[0_0_20px_rgba(213,183,122,0.4)] scale-105'
-                      : 'border border-cei-gold/30 bg-cei-surface/40 text-cei-cream/70 hover:text-cei-gold hover:border-cei-gold/60'
+                      ? 'bg-[#C5A46D] text-[#121110] font-semibold'
+                      : 'border border-white/15 bg-white/5 text-white/70 hover:text-white hover:border-white/30'
                   }`}
                 >
                   <span>{bar.label}</span>
@@ -559,7 +553,7 @@ export const Flavours: React.FC<FlavoursProps> = ({
 
               <button
                 onClick={handleAddCustomBar}
-                className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-cei-gold-dark via-cei-gold to-cei-gold-light text-cei-dark font-sans text-xs tracking-widest font-bold uppercase rounded-sm shadow-xl hover:brightness-110 flex items-center justify-center space-x-2"
+                className="w-full sm:w-auto px-8 py-3 bg-[#C5A46D] text-[#121110] font-sans text-xs tracking-widest font-semibold uppercase rounded-sm shadow-lg hover:brightness-110 flex items-center justify-center space-x-2"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Craft & Add To Case • ₹490</span>
@@ -572,7 +566,7 @@ export const Flavours: React.FC<FlavoursProps> = ({
       {/* Filter and Search Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Category Tabs */}
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-4 gap-2 border-b border-cei-gold/15 no-scrollbar">
+        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-4 gap-2 border-b border-white/10 no-scrollbar">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
@@ -581,8 +575,8 @@ export const Flavours: React.FC<FlavoursProps> = ({
                 onClick={() => onSelectCategory(cat.id)}
                 className={`px-4 py-2 text-xs tracking-[0.15em] uppercase font-sans rounded-sm transition-all whitespace-nowrap shrink-0 ${
                   isActive
-                    ? 'bg-cei-gold text-cei-dark font-semibold shadow-[0_0_15px_rgba(213,183,122,0.3)]'
-                    : 'bg-cei-surface/50 text-cei-cream/70 hover:text-cei-cream border border-cei-gold/15 hover:border-cei-gold/40'
+                    ? 'bg-[#C5A46D] text-[#121110] font-semibold'
+                    : 'bg-white/5 text-white/70 hover:text-white border border-white/10 hover:border-white/25'
                 }`}
               >
                 {cat.title}
