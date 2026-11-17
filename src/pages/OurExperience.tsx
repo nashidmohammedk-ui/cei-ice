@@ -30,8 +30,8 @@ export const OurExperience: React.FC<OurExperienceProps> = ({ onNavigate }) => {
     {
       id: 'g-3',
       category: 'moments',
-      title: 'The Mayfair Private Tasting Counter',
-      subtitle: 'Chilled marble and crystal spoons',
+      title: 'The Fort Kochi Flagship Tasting Counter',
+      subtitle: 'Chilled marble and engraved brass trays',
       image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85',
       span: 'col-span-1'
     },

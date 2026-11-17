@@ -96,8 +96,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
               <div className="flex justify-between items-center mb-1.5 font-light">
                 <span className="text-cei-cream/80">
                   {remainingForFreeShipping > 0
-                    ? `Add $${remainingForFreeShipping.toFixed(2)} for Complimentary Cryo-Freight`
-                    : 'Complimentary Dry-Ice Delivery Unlocked'}
+                    ? `Add ₹${Math.round(remainingForFreeShipping).toLocaleString('en-IN')} for Complimentary Cryo-Freight Across Kerala & India`
+                    : 'Complimentary Dry-Ice Delivery Unlocked Across India'}
                 </span>
                 <span className="text-cei-gold font-medium">{progressPercent}%</span>
               </div>
@@ -182,7 +182,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
 
                         {/* Price */}
                         <span className="font-serif text-sm font-semibold text-cei-gold">
-                          ${(Number(getItemPrice(item.product.price, item.sizeOption)) * item.quantity).toFixed(2)}
+                          ₹{(Math.round(Number(getItemPrice(item.product.price, item.sizeOption)) * item.quantity)).toLocaleString('en-IN')}
                         </span>
                       </div>
                     </div>
@@ -280,17 +280,17 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                 <div className="space-y-1.5 text-xs text-cei-cream/70 pt-1 font-light">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span className="font-serif text-sm font-medium text-cei-cream">${subtotal.toFixed(2)}</span>
+                    <span className="font-serif text-sm font-medium text-cei-cream">₹{Math.round(subtotal).toLocaleString('en-IN')}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Cryogenic Dry-Ice Freight</span>
                     <span className="font-serif text-sm font-medium text-cei-cream">
-                      {shipping === 0 ? <span className="text-cei-gold">Complimentary</span> : `$${shipping.toFixed(2)}`}
+                      {shipping === 0 ? <span className="text-cei-gold">Complimentary</span> : `₹${Math.round(shipping).toLocaleString('en-IN')}`}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm font-medium text-cei-cream pt-2 border-t border-cei-gold/15">
-                    <span className="font-serif text-base text-cei-gold">Total (USD)</span>
-                    <span className="font-serif text-lg font-bold text-cei-gold">${total.toFixed(2)}</span>
+                    <span className="font-serif text-base text-cei-gold">Total (INR)</span>
+                    <span className="font-serif text-lg font-bold text-cei-gold">₹{Math.round(total).toLocaleString('en-IN')}</span>
                   </div>
                 </div>
 

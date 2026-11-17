@@ -9,7 +9,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onFilterCategory }) => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [currency, setCurrency] = useState('USD ($)');
+  const [currency, setCurrency] = useState('INR (₹)');
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,7 +103,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onFilterCategory }) 
             </p>
 
             <div className="pt-2 text-xs text-cei-cream/60">
-              <span className="text-cei-gold font-medium">Headquarters Atelier:</span> 18 Rue Saint-Honoré, 75001 Paris
+              <span className="text-cei-gold font-medium">Flagship Atelier:</span> 14/128 Parade Ground, Vasco Da Gama Square, Fort Kochi, Kerala 682001, India
             </div>
 
             {/* Currency Selector */}
@@ -114,10 +114,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onFilterCategory }) 
                 onChange={(e) => setCurrency(e.target.value)}
                 className="bg-cei-surface border border-cei-gold/30 rounded-sm text-cei-cream text-xs px-2.5 py-1 focus:outline-none focus:border-cei-gold"
               >
+                <option value="INR (₹)">INR (₹) — India</option>
                 <option value="USD ($)">USD ($) — United States</option>
                 <option value="EUR (€)">EUR (€) — European Union</option>
                 <option value="GBP (£)">GBP (£) — United Kingdom</option>
-                <option value="JPY (¥)">JPY (¥) — Japan</option>
                 <option value="AED (د.إ)">AED (د.إ) — UAE</option>
               </select>
             </div>

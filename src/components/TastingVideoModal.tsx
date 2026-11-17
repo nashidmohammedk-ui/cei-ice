@@ -168,7 +168,7 @@ export const TastingVideoModal: React.FC<TastingVideoModalProps> = ({ isOpen, on
             <div className="pt-6 border-t border-cei-gold/20 flex flex-col gap-2.5">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-cei-cream/70">Single Handcrafted Bar</span>
-                <span className="font-serif text-lg font-bold text-cei-gold">$6.50</span>
+                <span className="font-serif text-lg font-bold text-cei-gold">₹{heroStickProduct.price.toLocaleString('en-IN')}</span>
               </div>
 
               <button
@@ -179,7 +179,7 @@ export const TastingVideoModal: React.FC<TastingVideoModalProps> = ({ isOpen, on
                 className="w-full py-3 bg-gradient-to-r from-cei-gold-dark via-cei-gold to-cei-gold-light text-cei-dark hover:brightness-110 font-sans text-xs tracking-[0.2em] font-semibold uppercase rounded-sm shadow-xl flex items-center justify-center space-x-2"
               >
                 <ShoppingBag className="w-3.5 h-3.5" />
-                <span>Add Bar to Case • $6.50</span>
+                <span>Add Bar to Case • ₹{heroStickProduct.price.toLocaleString('en-IN')}</span>
               </button>
             </div>
           </div>

@@ -68,7 +68,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
               Handcrafted Bar
             </span>
             <span className="font-serif text-lg font-semibold text-[#D5B77A]">
-              ${product.price.toFixed(2)}
+              ₹{product.price.toLocaleString('en-IN')}
             </span>
           </div>
 

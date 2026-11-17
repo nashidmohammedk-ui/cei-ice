@@ -20,22 +20,22 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBackToShop, onOrderSuccess
 
   // Form states
   const [formData, setFormData] = useState({
-    firstName: 'Eleanor',
-    lastName: 'Vandermeer',
-    email: 'eleanor.vandermeer@couture.com',
-    phone: '+1 (555) 234-8900',
-    address: '740 Park Avenue, Apt 14B',
-    city: 'New York',
-    state: 'NY',
-    postalCode: '10021',
-    deliveryDate: '2026-11-14',
+    firstName: 'Anjali',
+    lastName: 'Nambiar',
+    email: 'anjali.nambiar@keralaglacier.in',
+    phone: '+91 98470 12345',
+    address: '14 Marine Walk, Panampilly Nagar',
+    city: 'Kochi',
+    state: 'Kerala',
+    postalCode: '682036',
+    deliveryDate: '2026-11-18',
     deliverySlot: 'morning',
     shippingMethod: 'dry-ice-standard',
-    paymentMethod: 'card',
+    paymentMethod: 'upi',
     cardNumber: '•••• •••• •••• 8842',
     cardExpiry: '08/29',
     cardCvc: '•••',
-    orderNotes: 'Please ring concierge for dry-ice package handover.'
+    orderNotes: 'Please ring doorbell for cold dry-ice package handover.'
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -261,7 +261,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBackToShop, onOrderSuccess
                 <div className="space-y-4">
                   <div className="flex items-center justify-between border-b border-cei-gold/15 pb-2">
                     <h3 className="font-serif text-lg text-cei-gold">
-                      4. Payment Integration Structure
+                      4. Indian & International Payment
                     </h3>
                     <div className="flex items-center space-x-1.5 text-[11px] text-cei-gold font-light">
                       <Lock className="w-3.5 h-3.5" />
@@ -272,20 +272,20 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBackToShop, onOrderSuccess
                   {/* Payment Options */}
                   <div className="grid grid-cols-3 gap-3 text-xs">
                     <div className="p-3 rounded-sm border border-cei-gold bg-cei-gold/10 text-cei-gold font-medium text-center">
-                      Credit / Debit Card
+                      UPI (GPay / PhonePe / Paytm)
                     </div>
-                    <div className="p-3 rounded-sm border border-cei-gold/20 bg-cei-surface text-cei-cream/60 text-center font-light">
-                      Apple Pay
+                    <div className="p-3 rounded-sm border border-cei-gold/20 bg-cei-surface text-cei-cream/80 text-center font-light">
+                      Credit / Debit Card (RuPay/Visa/MC)
                     </div>
-                    <div className="p-3 rounded-sm border border-cei-gold/20 bg-cei-surface text-cei-cream/60 text-center font-light">
-                      VIP Concierge Wire
+                    <div className="p-3 rounded-sm border border-cei-gold/20 bg-cei-surface text-cei-cream/80 text-center font-light">
+                      Net Banking (All Indian Banks)
                     </div>
                   </div>
 
-                  {/* Card Inputs */}
+                  {/* Card / UPI Inputs */}
                   <div className="p-4 bg-cei-surface/70 rounded-sm border border-cei-gold/25 space-y-3 text-xs font-light">
                     <div>
-                      <label className="block text-cei-cream/70 mb-1">Card Number</label>
+                      <label className="block text-cei-cream/70 mb-1">UPI ID or Card Number</label>
                       <div className="relative">
                         <CreditCard className="w-4 h-4 text-cei-gold absolute left-3 top-1/2 -translate-y-1/2" />
                         <input
@@ -323,7 +323,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBackToShop, onOrderSuccess
                       </div>
                     </div>
                     <p className="text-[10px] text-cei-cream/40 italic">
-                      Ready for Stripe / Adyen production API integration.
+                      Integrated for Razorpay, Cashfree & UPI instant checkout across India.
                     </p>
                   </div>
                 </div>
@@ -335,9 +335,9 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBackToShop, onOrderSuccess
                   className="w-full py-4 bg-gradient-to-r from-cei-gold-dark via-cei-gold to-cei-gold-light text-cei-dark hover:brightness-110 font-sans text-xs tracking-[0.2em] font-bold uppercase rounded-sm shadow-2xl flex items-center justify-center space-x-2"
                 >
                   {isSubmitting ? (
-                    <span>Securing Cryogenic Dispatch...</span>
+                    <span>Securing Cryogenic Dispatch Across Kerala...</span>
                   ) : (
-                    <span>Confirm Order • ${total.toFixed(2)} USD</span>
+                    <span>Confirm Order • ₹{Math.round(total).toLocaleString('en-IN')} INR</span>
                   )}
                 </button>
               </form>
@@ -373,7 +373,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBackToShop, onOrderSuccess
                         </span>
                       </div>
                       <span className="font-serif font-semibold text-cei-gold">
-                        ${(item.product.price * (item.sizeOption === 'tasting-flight' ? 3.6 : 1) * item.quantity).toFixed(2)}
+                        ₹{(Math.round(item.product.price * (item.sizeOption === 'tasting-flight' ? 3.6 : 1) * item.quantity)).toLocaleString('en-IN')}
                       </span>
                     </div>
                   </div>
@@ -400,17 +400,17 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBackToShop, onOrderSuccess
               <div className="pt-3 border-t border-cei-gold/15 space-y-2 text-xs font-light">
                 <div className="flex justify-between">
                   <span className="text-cei-cream/70">Subtotal</span>
-                  <span className="font-serif text-sm font-medium">${subtotal.toFixed(2)}</span>
+                  <span className="font-serif text-sm font-medium">₹{Math.round(subtotal).toLocaleString('en-IN')}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-cei-cream/70">Solid CO₂ Cryo-Freight</span>
                   <span className="font-serif text-sm font-medium text-cei-gold">
-                    {shipping === 0 ? 'Complimentary' : `$${shipping.toFixed(2)}`}
+                    {shipping === 0 ? 'Complimentary' : `₹${Math.round(shipping).toLocaleString('en-IN')}`}
                   </span>
                 </div>
                 <div className="flex justify-between pt-2 border-t border-cei-gold/15 text-sm font-medium">
                   <span className="font-serif text-base text-cei-gold">Total Due</span>
-                  <span className="font-serif text-xl font-bold text-cei-gold">${total.toFixed(2)} USD</span>
+                  <span className="font-serif text-xl font-bold text-cei-gold">₹{Math.round(total).toLocaleString('en-IN')} INR</span>
                 </div>
               </div>
 
@@ -420,7 +420,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBackToShop, onOrderSuccess
                 <div>
                   <span className="font-semibold text-cei-cream block">48-Hour Cold Guarantee</span>
                   <p className="text-[11px] text-cei-cream/60 leading-relaxed font-light mt-0.5">
-                    Your shipment is guaranteed to arrive rock-solid at -18°C or below anywhere in the United States and Western Europe.
+                    Your shipment is guaranteed to arrive rock-solid at -18°C or below anywhere in Kerala and across India.
                   </p>
                 </div>
               </div>

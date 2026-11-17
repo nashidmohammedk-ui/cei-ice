@@ -127,7 +127,7 @@ export const Flavours: React.FC<FlavoursProps> = ({
       collection: 'bespoke-petals' as any,
       collectionTitle: 'Bespoke Couture Creation',
       tagline: `${customDip} dipped with ${customToppings.join(' & ')} and ${customDrizzle} on CEI birchwood stick.`,
-      price: 10.5,
+      price: 490,
       rating: 5.0,
       reviewsCount: 1,
       badge: 'Bespoke Atelier Creation',
@@ -139,8 +139,8 @@ export const Flavours: React.FC<FlavoursProps> = ({
         base: customBase
       },
       provenance: {
-        region: 'CEI Atelier Dipping Bar',
-        country: 'Worldwide Private Salon',
+        region: 'CEI Fort Kochi Atelier Dipping Bar',
+        country: 'Kerala, India',
         source: 'Handcrafted to order'
       },
       details: {
@@ -196,9 +196,9 @@ export const Flavours: React.FC<FlavoursProps> = ({
             {/* Signature Bar Switcher Pills */}
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 pt-6">
               {[
-                { id: 'rose', label: '01 / Damask Rose & Pistachio', price: '$7.50' },
-                { id: 'chuao', label: '02 / Chuao Caramel Hazelnut', price: '$6.50' },
-                { id: 'gold', label: '03 / 24K Gold & Black Truffle', price: '$12.00' }
+                { id: 'rose', label: '01 / Damask Rose & Pistachio', price: '₹450' },
+                { id: 'chuao', label: '02 / Chuao Caramel Hazelnut', price: '₹380' },
+                { id: 'gold', label: '03 / 24K Gold & Black Truffle', price: '₹750' }
               ].map((bar) => (
                 <button
                   key={bar.id}
@@ -562,7 +562,7 @@ export const Flavours: React.FC<FlavoursProps> = ({
                 className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-cei-gold-dark via-cei-gold to-cei-gold-light text-cei-dark font-sans text-xs tracking-widest font-bold uppercase rounded-sm shadow-xl hover:brightness-110 flex items-center justify-center space-x-2"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>Craft & Add To Case • $10.50</span>
+                <span>Craft & Add To Case • ₹490</span>
               </button>
             </div>
           </div>

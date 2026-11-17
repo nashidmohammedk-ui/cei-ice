@@ -70,10 +70,10 @@ export const OurStory: React.FC<OurStoryProps> = ({ onNavigate }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-cei-dark via-transparent to-transparent opacity-75" />
               <div className="absolute bottom-6 left-6 right-6">
                 <span className="text-[10px] tracking-widest uppercase text-cei-gold font-light block">
-                  Rue Saint-Honoré, Paris
+                  Fort Kochi Heritage Quarter, Kerala
                 </span>
                 <span className="font-serif text-xl text-cei-cream">
-                  The Original Laboratory of Cold
+                  The Malabar Atelier of Cold Gastronomy
                 </span>
               </div>
             </div>
@@ -84,14 +84,14 @@ export const OurStory: React.FC<OurStoryProps> = ({ onNavigate }) => {
               Chapter I — Our Beginning
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-medium text-cei-cream leading-tight">
-              From Florentine Gelato Secrets to Haute Glacerie.
+              From Malabar Spice Routes to Haute Glacerie.
             </h2>
             <div className="w-16 h-[1px] bg-cei-gold/40" />
             <p className="text-sm text-cei-cream/80 leading-relaxed font-light">
-              CEI was born from a singular culinary frustration. While fine chocolate, specialty coffee, and grand cru wines have reached peak artisanal reverence, commercial ice cream had surrendered to mass industrial shortcuts: 50% pumped atmospheric air, artificial gums, mono-glycerides, and synthetic vanillin.
+              CEI was born along the historic spice waterfront of Fort Kochi, Kerala. For over two thousand years, the Malabar Coast stood as the epicentre of the global spice trade. While commercial ice cream had surrendered to mass industrial shortcuts—50% pumped atmospheric air, artificial gums, and synthetic extracts—we set out to craft pure handheld luxury.
             </p>
             <p className="text-sm text-cei-cream/80 leading-relaxed font-light">
-              In 2018, our founder—trained under classical French pastry masters in Paris and generational gelatieri in Florence—constructed a purpose-built micro-churn atelier. The mission was clear: create the world's most luxurious frozen dessert, with zero compromise on density, temperature physics, or botanical provenance.
+              Trained under classical French pastry masters in Paris and generational gelatieri in Florence, our founders established our flagship atelier in Fort Kochi. Here, classical European cold churn craftsmanship merges with India's most extraordinary terroirs—Wayanad orchid vanilla, Malabar roast cacao, Idukki hill honey, and farm-fresh Kerala dairy cream.
             </p>
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-cei-gold/15">
               <div>

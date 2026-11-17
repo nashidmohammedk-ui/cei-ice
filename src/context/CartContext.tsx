@@ -113,8 +113,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return sum + (item.product.price * multiplier * item.quantity);
   }, 0);
 
-  const freeShippingThreshold = 80;
-  const shipping = subtotal === 0 ? 0 : subtotal >= freeShippingThreshold ? 0 : 14;
+  const freeShippingThreshold = 1000;
+  const shipping = subtotal === 0 ? 0 : subtotal >= freeShippingThreshold ? 0 : 99;
   const giftWrapCost = includeGiftWrap && subtotal > 0 ? 0 : 0; // Complimentary luxury packaging
   const total = subtotal + shipping + giftWrapCost;
 

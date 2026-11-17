@@ -36,10 +36,10 @@ export const BoutiqueModal: React.FC<BoutiqueModalProps> = ({
           <div className="flex items-center justify-between border-b border-cei-gold/20 pb-4 mb-6">
             <div>
               <span className="text-[10px] tracking-[0.3em] uppercase text-cei-gold font-light block mb-0.5">
-                Worldwide Locations
+                Kerala & India Flagship Salons
               </span>
               <h2 className="font-serif text-2xl font-medium text-cei-cream">
-                CEI Flagship Salons
+                CEI Boutiques & Tasting Salons
               </h2>
             </div>
             <button

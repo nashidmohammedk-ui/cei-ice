@@ -203,14 +203,14 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
       collection: 'bespoke-petals' as any,
       collectionTitle: 'Bespoke Couture Creation',
       tagline: `${customGelato} gelato dipped in ${customDip} with ${customTopping}.`,
-      price: 10.5,
+      price: 490,
       rating: 5.0,
       reviewsCount: 1,
       badge: 'Atelier Sur Mesure',
       image: getCustomizerPhoto(),
       secondaryImage: '/images/reference-couture-bar.jpg',
       notes: { top: customTopping, heart: customDip, base: customGelato },
-      provenance: { region: 'CEI Atelier Dipping Salon', country: 'Paris & Worldwide', source: 'Hand-dipped to order' },
+      provenance: { region: 'CEI Fort Kochi Atelier Dipping Salon', country: 'Kerala, India', source: 'Hand-dipped to order' },
       details: {
         description: `Custom formulated haute couture ice cream bar: ${customGelato} gelato freshly dipped in ${customDip} and adorned with ${customTopping} on engraved birchwood stick.`,
         tastingRitual: 'Serve in cold gold-foil presentation tray.',
@@ -745,7 +745,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
               <div className="absolute inset-0 bg-gradient-to-t from-[#242321] via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-6 left-6 right-6">
                 <span className="text-[10px] tracking-widest uppercase text-[#C5A46D] font-medium block">
-                  Rue Saint-Honoré, Paris & Ginza, Tokyo
+                  Fort Kochi, Kerala • Malabar Spice Terroir
                 </span>
                 <span className="font-serif text-2xl text-[#F4EBD8]">
                   The Atelier of Handheld Gastronomy
@@ -763,10 +763,10 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
             </h2>
             <div className="w-16 h-[2px] bg-[#C5A46D]" />
             <p className="text-sm text-[#242321]/80 leading-relaxed font-normal">
-              Commercial ice cream hides behind 50% pumped atmospheric air, artificial gums, and synthetic extracts. CEI was founded to restore absolute reverence to frozen gastronomy.
+              Commercial ice cream hides behind 50% pumped atmospheric air, artificial gums, and synthetic extracts. Born along the historic spice coast of Fort Kochi, Kerala, CEI brings together classical French haute glacerie with the world's most treasured terroirs — Wayanad orchid vanilla, Malabar roast cacao, Idukki wild honey, and Sicilian nuts.
             </p>
             <p className="text-sm text-[#242321]/80 leading-relaxed font-normal">
-              Each bar is hand-dipped in single-origin grand cru chocolate, slow-churned in French pots with sub-15% air overrun, and served on custom engraved birchwood sticks. What reaches your palate is pure, unyielding luxury.
+              Each bar is hand-dipped in single-origin grand cru chocolate, slow-churned with sub-15% air overrun using pure Kerala farm-fresh dairy cream, and served on custom engraved birchwood sticks. What reaches your palate is pure, unyielding luxury.
             </p>
 
             <button
@@ -1163,7 +1163,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
                   className="px-8 py-3.5 bg-[#07140E] text-[#D5B77A] hover:bg-[#D5B77A] hover:text-[#07140E] transition-all text-xs font-bold uppercase tracking-widest rounded-sm shadow-xl flex items-center space-x-2"
                 >
                   <ShoppingBag className="w-4 h-4" />
-                  <span>BOOK THIS BAR ($10.50)</span>
+                  <span>BOOK THIS BAR (₹490)</span>
                 </button>
 
                 <button
@@ -1226,7 +1226,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate, onFilterCategory, onQuic
                 </div>
 
                 <div className="pt-6 border-t border-[#D5B77A]/15 flex items-center justify-between">
-                  <span className="font-serif text-2xl font-bold text-[#D5B77A]">${flight.price}.00</span>
+                  <span className="font-serif text-2xl font-bold text-[#D5B77A]">₹{flight.price.toLocaleString('en-IN')}</span>
                   <button
                     onClick={() => {
                       addToCart(PRODUCTS[0], 1, 'tasting-flight', flight.name);

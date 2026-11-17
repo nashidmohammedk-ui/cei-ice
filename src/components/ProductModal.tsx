@@ -24,7 +24,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
     return 1;
   };
 
-  const currentPrice = (product.price * getPriceMultiplier(selectedSize) * quantity).toFixed(2);
+  const currentPrice = Math.round(product.price * getPriceMultiplier(selectedSize) * quantity).toLocaleString('en-IN');
 
   const handleAddToCart = () => {
     addToCart(product, quantity, selectedSize);
@@ -339,7 +339,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
                 className="flex-1 py-3 px-5 bg-gradient-to-r from-cei-gold-dark via-cei-gold to-cei-gold-light text-cei-dark hover:brightness-110 transition-all font-sans text-xs tracking-[0.15em] font-semibold uppercase rounded-sm shadow-xl flex items-center justify-between"
               >
                 <span>Add to Cryo-Case</span>
-                <span className="font-serif text-sm font-bold">${currentPrice}</span>
+                <span className="font-serif text-sm font-bold">₹{currentPrice}</span>
               </button>
             </div>
           </div>

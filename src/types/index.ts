@@ -18,8 +18,6 @@ export interface Product {
   reviewsCount: number;
   image: string;
   secondaryImage: string;
-  video?: string;
-  audio?: string;
   badge?: string;
   isBestSeller?: boolean;
   isFeatured?: boolean;

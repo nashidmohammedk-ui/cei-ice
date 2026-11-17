@@ -84,17 +84,17 @@ export const OrderConfirmation: React.FC<OrderConfirmationProps> = ({ order, onN
               </span>
               <div className="flex justify-between text-cei-cream/70">
                 <span>Items Subtotal:</span>
-                <span className="font-medium text-cei-cream">${order?.subtotal?.toFixed(2) || '54.00'}</span>
+                <span className="font-medium text-cei-cream">₹{Math.round(order?.subtotal || 1490).toLocaleString('en-IN')}</span>
               </div>
               <div className="flex justify-between text-cei-cream/70">
                 <span>Cryogenic Dry-Ice Freight:</span>
                 <span className="font-medium text-cei-gold">
-                  {order?.shipping === 0 ? 'Complimentary' : `$${order?.shipping?.toFixed(2)}`}
+                  {order?.shipping === 0 ? 'Complimentary' : `₹${Math.round(order?.shipping || 99).toLocaleString('en-IN')}`}
                 </span>
               </div>
               <div className="flex justify-between text-sm font-semibold text-cei-gold pt-2 border-t border-cei-gold/15">
                 <span>Total Settled:</span>
-                <span className="font-serif text-base">${order?.total?.toFixed(2) || '54.00'} USD</span>
+                <span className="font-serif text-base">₹{Math.round(order?.total || 1490).toLocaleString('en-IN')} INR</span>
               </div>
             </div>
           </div>

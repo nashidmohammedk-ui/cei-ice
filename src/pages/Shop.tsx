@@ -49,7 +49,7 @@ export const Shop: React.FC<ShopProps> = ({ onQuickView, onProceedToCheckout }) 
           {totalItems > 0 && (
             <div className="mt-6 inline-flex items-center space-x-4 px-5 py-2.5 rounded-full bg-cei-surface border border-cei-gold/50 shadow-xl">
               <span className="text-xs text-cei-cream font-light">
-                {totalItems} items in your case (${subtotal.toFixed(2)})
+                {totalItems} items in your case (₹{Math.round(subtotal).toLocaleString('en-IN')})
               </span>
               <button
                 onClick={() => setIsCartOpen(true)}
@@ -109,10 +109,10 @@ export const Shop: React.FC<ShopProps> = ({ onQuickView, onProceedToCheckout }) 
               <div className="pt-6 border-t border-cei-gold/15 flex items-center justify-between">
                 <div>
                   <span className="text-xs text-cei-cream/50 line-through mr-2">
-                    ${flight.originalPrice}.00
+                    ₹{flight.originalPrice.toLocaleString('en-IN')}
                   </span>
                   <span className="font-serif text-2xl font-bold text-cei-gold">
-                    ${flight.price}.00
+                    ₹{flight.price.toLocaleString('en-IN')}
                   </span>
                 </div>
                 <button
@@ -179,10 +179,10 @@ export const Shop: React.FC<ShopProps> = ({ onQuickView, onProceedToCheckout }) 
             </div>
             <div>
               <h4 className="font-serif text-base text-cei-cream font-medium">
-                Complimentary Dry-Ice Delivery On Orders Over $80
+                Complimentary Dry-Ice Delivery Across Kerala & India On Orders Over ₹1,000
               </h4>
               <p className="text-xs text-cei-cream/60 font-light mt-0.5">
-                Every pint remains at -18°C throughout transit. Guaranteed cold arrival anywhere nationwide.
+                Every handcrafted bar remains at -18°C throughout transit. Guaranteed cold arrival anywhere in Kerala and across India.
               </p>
             </div>
           </div>

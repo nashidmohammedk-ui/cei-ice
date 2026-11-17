@@ -78,7 +78,7 @@ export const Contact: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-cei-gold/15">
           <div>
             <span className="text-xs tracking-[0.3em] uppercase text-cei-gold font-light block mb-1">
-              Global Boutiques
+              Kerala & India Salons
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-medium text-cei-cream">
               Flagship Salons & Boutiques
@@ -248,7 +248,7 @@ export const Contact: React.FC = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="+44 20 7946 0912"
+                        placeholder="+91 98470 12345"
                         className="w-full bg-cei-surface border border-cei-gold/30 px-3.5 py-2.5 rounded-sm text-cei-cream placeholder:text-cei-cream/30 focus:outline-none focus:border-cei-gold"
                       />
                     </div>
@@ -304,17 +304,17 @@ export const Contact: React.FC = () => {
               <div className="space-y-4 text-cei-cream/80">
                 <div>
                   <span className="text-[10px] tracking-widest text-cei-gold uppercase font-semibold block mb-0.5">
-                    Global Concierge Hotline
+                    Kerala & India Concierge Desk
                   </span>
-                  <p className="text-sm font-serif text-cei-cream">+33 1 42 68 55 99</p>
-                  <p className="text-[11px] text-cei-cream/50">Available 24/7 for Private Clients</p>
+                  <p className="text-sm font-serif text-cei-cream">+91 484 221 8900 / +91 98470 12345</p>
+                  <p className="text-[11px] text-cei-cream/50">Available Daily 10:00 AM – 11:00 PM IST</p>
                 </div>
 
                 <div>
                   <span className="text-[10px] tracking-widest text-cei-gold uppercase font-semibold block mb-0.5">
                     Michelin & Hotel Partnerships
                   </span>
-                  <p className="text-sm font-serif text-cei-cream">partnerships@ceicouture.com</p>
+                  <p className="text-sm font-serif text-cei-cream">partnerships@ceicouture.in</p>
                   <p className="text-[11px] text-cei-cream/50">Sommeliers and executive chefs</p>
                 </div>
 
@@ -322,7 +322,7 @@ export const Contact: React.FC = () => {
                   <span className="text-[10px] tracking-widest text-cei-gold uppercase font-semibold block mb-0.5">
                     Press & Editorial
                   </span>
-                  <p className="text-sm font-serif text-cei-cream">press@ceicouture.com</p>
+                  <p className="text-sm font-serif text-cei-cream">press@ceicouture.in</p>
                   <p className="text-[11px] text-cei-cream/50">Media kits and photography assets</p>
                 </div>
               </div>
