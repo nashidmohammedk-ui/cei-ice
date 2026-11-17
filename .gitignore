@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.node/
+
+# Production
+dist/
+dist-ssr/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Editor directories
+.vscode/
+.idea/
+.DS_Store
+
+# Temporary scratch scripts
+scratch_extract.cjs
+scratch_extract_2.cjs
