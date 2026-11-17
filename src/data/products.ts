@@ -26,6 +26,8 @@ export const PRODUCTS: Product[] = [
     isNewRelease: true,
     image: '/images/cei-rose-pistachio-bar.jpg',
     secondaryImage: '/images/cei-rose-pistachio-macro.jpg',
+    video: '/hero_anim.mp4',
+    audio: '/audio/cei-reveal-3.mp3',
     notes: {
       top: 'Crystallised Rose Petals, Sicilian Pistachio Pearls',
       heart: 'Ivory White Chocolate Drizzle, Brownie Cookie Crumble',
@@ -68,6 +70,8 @@ export const PRODUCTS: Product[] = [
     isFeatured: true,
     image: '/images/cei-chuao-tray-bar.jpg',
     secondaryImage: '/images/hero-ice-cream-bar.jpg',
+    video: '/videos/cei-flavour-transformation.mp4',
+    audio: '/audio/cei-reveal-2.mp3',
     notes: {
       top: 'Roasted Hazelnut Brittle, Salted Caramel Ripple',
       heart: '78% Chuao Criollo Crackled Chocolate, Jersey Cream',
@@ -235,6 +239,8 @@ export const PRODUCTS: Product[] = [
     isNewRelease: true,
     image: '/images/cei-utopia-double-hazelnut.jpg',
     secondaryImage: '/images/hero-ice-cream-bar.jpg',
+    video: '/videos/cei-flavour-transformation.mp4',
+    audio: '/audio/cei-reveal-0.mp3',
     notes: {
       top: 'Slow-Roasted Langhe Hazelnuts, Ivory Praline Crust',
       heart: 'Molten Caramelized Chocolate Fudge Ribbon',
@@ -277,6 +283,8 @@ export const PRODUCTS: Product[] = [
     isNewRelease: true,
     image: '/images/cei-utopia-double-cherry.jpg',
     secondaryImage: '/images/cei-dark-chocolate-hero.jpg',
+    video: '/videos/cei-hero-video.mp4',
+    audio: '/audio/cei-reveal-1.mp3',
     notes: {
       top: 'Crunchy Amarena Pearls, 75% Single-Origin Dark Shell',
       heart: 'Italian Amarena Wild Cherry Coulis Ribbon',
@@ -319,6 +327,8 @@ export const PRODUCTS: Product[] = [
     isNewRelease: true,
     image: '/images/cei-raspberry-swirl-bar.jpg',
     secondaryImage: '/images/cei-white-chocolate-macadamia.jpg',
+    video: '/cei.mp4',
+    audio: '/audio/cei-reveal-2.mp3',
     notes: {
       top: 'Crystallised Alpine Raspberry Shards, Crispy White Pearls',
       heart: 'Ivory Cocoa Velvet & Molten Crimson Coulis Ribbon',
@@ -360,6 +370,8 @@ export const PRODUCTS: Product[] = [
     isNewRelease: true,
     image: '/images/cei-strawberry-shortcake-bar.jpg',
     secondaryImage: '/images/cei-rose-pistachio-bar.jpg',
+    video: '/hero_anim.mp4',
+    audio: '/audio/cei-reveal-3.mp3',
     notes: {
       top: 'French Sablé Biscuit Pearls, Crystallised Strawberries',
       heart: 'Sweet Madagascar Vanilla Bean Gelato',
@@ -401,6 +413,8 @@ export const PRODUCTS: Product[] = [
     isNewRelease: true,
     image: '/images/cei-midnight-cookie-cream-bar.jpg',
     secondaryImage: '/images/hero-ice-cream-bar.jpg',
+    video: '/videos/cei-hero-video.mp4',
+    audio: '/audio/cei-reveal-0.mp3',
     notes: {
       top: 'Black Cocoa Cookie Crumble & Crispy Cacao Pearls',
       heart: 'Single-Origin Dark Cacao Ganache Ripple',
@@ -442,6 +456,8 @@ export const PRODUCTS: Product[] = [
     isNewRelease: true,
     image: '/images/cei-nordic-blueberry-bar.jpg',
     secondaryImage: '/images/cei-white-chocolate-macadamia.jpg',
+    video: '/cei.mp4',
+    audio: '/audio/cei-reveal-1.mp3',
     notes: {
       top: 'Indigo Bilberry Crisps, Ivory White Cocoa Shell',
       heart: 'Concentrated Scandinavian Wild Blueberry Coulis',
